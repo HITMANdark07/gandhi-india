@@ -1,0 +1,42 @@
+.sidebar {
+  position: fixed;
+  width: 20%;
+  top: 85px;
+  display: block;
+}
+.sidenav {
+  /* width: 180px; */
+  height: 90vh;
+  z-index: 1;
+  top: 90px;
+  left: 10px;
+  background: #eee;
+  overflow-x: scroll;
+  padding: 20px;
+}
+.sidenavTitle {
+  font-size: 25px;
+  padding: 8px;
+  text-decoration: underline;
+  color: tomato;
+}
+.sidenavContent a {
+  padding: 6px 8px 6px 16px;
+  text-decoration: none;
+  font-size: 18px;
+  color: grey;
+  display: block;
+}
+.productCards {
+  margin-left: 20%;
+  margin-top: 90px;
+}
+@media only screen and (max-width: 900px) {
+  .sidebar {
+    display: none;
+  }
+  .productCards {
+    transform: translateX(-10%);
+    margin-top: 80px;
+  }
+}
