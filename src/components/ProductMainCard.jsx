@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import styles from "../assets/css/productPage.module.css";
 import Rating from '@mui/material/Rating';
 import ReactImageZoom from 'react-image-zoom';
-function ProductMainCard() {
+function ProductMainCard({product,category}) {
     const [count,setCount] = useState(1);
     const images = ["https://media.istockphoto.com/photos/plant-and-fan-for-living-room-decor-picture-id1279718203?b=1&k=20&m=1279718203&s=170667a&w=0&h=KclHT_uCZLGphHsk7B9QtRK1dsVf8tLj-xTXIVoQWno=",
                     "https://m.media-amazon.com/images/I/51QqXY279vL._SL1200_.jpg",
@@ -12,6 +12,9 @@ function ProductMainCard() {
     const increment=() =>{
         setCount(c => c+1);
     }
+    React.useEffect(() => {
+      document.getElementById("full").innerHTML=product.description;
+    },[product]);
     const decriment = () => {
         if(count>1){
             setCount(c=> c-1);
@@ -39,19 +42,21 @@ function ProductMainCard() {
         /> */}
       </div>
       <div className={styles.pContent}>
-        <div className={styles.pCategory}>Category : Electronic Gadgets</div>
-        <div className={styles.pTitle}>Fancy celling fan</div>
+        <div className={styles.pCategory}>Category : {category}</div>
+        <div className={styles.pTitle}>{product && product.name}</div>
         <div className={styles.pTitle}><Rating name="read-only" value={8} readOnly/></div>
         <div className={styles.pRates}>
-          <div className={styles.pMrp}>₹2600.00/-</div>
-          <div className={styles.pSp}>₹2301.00/-</div>
+          <div className={styles.pMrp}>₹{product && product.mrp}.00/-</div>
+          <div className={styles.pSp}>₹{product && product.price}.00/-</div>
         </div>
-        <div className={styles.pStock}>In Stock</div>
-        <div className={styles.pDescription}>
-          Lorem ipsum dolor sit amet consectetur, adipisicing elit. Fuga minima
+        <div className={styles.pStock}>{product && product.qty>0 ? "In Stock":"Out of Stock"}</div>
+        <div  className={styles.pDescription}>
+        <div id="full">
+        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Fuga minima
           quaerat laborum dignissimos ratione nobis magnam, distinctio rerum at
           minus! Nihil nobis fugiat illum debitis tempore labore fuga a
           perferendis.
+          </div>
         </div>
         <div className={styles.pCount}>
             <button className={styles.pBu} onClick={decriment}>-</button>

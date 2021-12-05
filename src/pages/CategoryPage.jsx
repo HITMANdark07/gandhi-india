@@ -23,7 +23,6 @@ function CategoryPage({match:{params:{categoryId}}}) {
     getProductsByCategory(categoryId).then(response => {
       if(response.length>=0){
         setProducts(response);
-        console.log(response);
       }else{
         alert("Someting went wrong");
       }
@@ -61,11 +60,11 @@ function CategoryPage({match:{params:{categoryId}}}) {
           ))}
         </div>
       </div>
-      <div className={styles.productCards} >
+      <div className={styles.productCards} style={{minHeight:"80vh"}} >
       <div className="category-section">
           {
             products.map((product) => (
-              <ProductCard title={product.name} mrp={product.mrp} price={product.price} />
+              <ProductCard title={product.name} id={product._id} mrp={product.mrp} price={product.price} />
             ))
           }
       </div>

@@ -1,13 +1,16 @@
 import React from "react";
+import { withRouter } from "react-router";
 import Image from '../assets/images/image1.jpg';
 
-const CategoryCard = (props) => {
+const CategoryCard = ({id,title, history}) => {
   return (
-    <div className="image">
+    <div className="image" style={{cursor:"pointer"}} onClick={() => {
+      history.push(`/category/${id}`);
+    }}>
     <img className="image__img" src={Image} alt="Bricks"/>
-     <p className="title">{props.title}</p>
+     <p className="title">{title}</p>
     <div className="image__overlay image__overlay--primary">
-        <div className="image__title">{props.title}</div>  
+        <div className="image__title">{title}</div>  
         <p className="image__description">
             we have a discount here.
         </p>     
@@ -16,4 +19,4 @@ const CategoryCard = (props) => {
   );
  };
 
-export default CategoryCard;
+export default withRouter(CategoryCard);

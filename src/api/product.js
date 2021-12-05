@@ -83,3 +83,16 @@ export const getProductsByCategory =(id) => {
         .catch(err => err)
     )
 }
+export const getFeatureProducts =(query) => {
+    return(
+        fetch(`${API}/products/${query}`,{
+            method:"GET",
+            headers:{
+                Accept:'application/json',
+                "Content-Type": "application/json",
+                token: `Bearer ${isAuthenticated().accessToken}`
+            },
+        }).then(response => response.json())
+        .catch(err => err)
+    )
+}
