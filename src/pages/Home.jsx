@@ -97,7 +97,7 @@ function Home() {
           <TinySlider settings={settings}>
             {
               featureProducts.map((pro) => (
-                <ProductCard key={pro._id} title={pro.name} id={pro._id} mrp={pro.mrp} price={pro.price}  />
+                <ProductCard key={pro._id} title={pro.name} id={pro._id} mrp={pro.mrp} price={pro.price} prod={pro}  />
               ))
             }
           </TinySlider>
@@ -110,7 +110,7 @@ function Home() {
           <div className="category-section">
           {
             pro.prods.map((prod) => (
-              <ProductCard key={prod._id} id={prod._id} mrp={prod.mrp} title={prod.name} price={prod.price} />
+              <ProductCard key={prod._id} id={prod._id} mrp={prod.mrp} title={prod.name} price={prod.price} prod={prod} />
             ))
           }
         </div>

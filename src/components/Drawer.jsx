@@ -144,14 +144,14 @@ function Drawer({ childFunc, history, cats }) {
               />
             </ListItem>
           ))}
-        <ListItem button onClick={() => history.push("/wishlist")}>
+        {/* <ListItem button onClick={() => history.push("/wishlist")}>
           <ListItemAvatar>
             <Avatar>
               <FavoriteIcon />
             </Avatar>
           </ListItemAvatar>
           <ListItemText primary="My WishList" secondary="wishlist" />
-        </ListItem>
+        </ListItem> */}
         <ListItem button onClick={() => history.push("/cart")}>
           <ListItemAvatar>
             <Avatar>

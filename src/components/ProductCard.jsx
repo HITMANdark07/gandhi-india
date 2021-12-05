@@ -2,9 +2,11 @@ import React from "react";
 import styles from "../assets/css/product.module.css";
 import Rating from '@mui/material/Rating';
 import VisibilityIcon from '@mui/icons-material/Visibility';
+import {addItem} from "../api/cartHelper";
 import { withRouter } from "react-router";
 
-function ProductCard({history,id, mrp, price, title}) {
+function ProductCard({history,id, mrp, price, title,prod}) {
+    const [added, setAdded] = React.useState(false);
   return (
       <div className={styles.productCard}>
           <img className={styles.productImage} src={`https://thumbs.dreamstime.com/b/product-text-made-wooden-cube-white-background-181800372.jpg`} alt="productssss"/>
@@ -14,7 +16,14 @@ function ProductCard({history,id, mrp, price, title}) {
           <VisibilityIcon sx={{ fontSize: 40 }} />
           </div>
           <div className={styles.productContent}>
-              <button className={styles.addCartbu}>Add to Cart</button>
+              <button className={styles.addCartbu} style={{backgroundColor:added? "grey": ""}}
+              disabled={added}
+              onClick={() => {
+                  addItem(prod, () => {
+                    setAdded(true);
+                  })
+              }}
+              >{added ? "Added": "Add"} to Cart</button>
               <h4>{title ? title : "Silk Saree"}</h4>
               <div><Rating name="read-only" value={8} readOnly/></div>
               <div className={styles.rates}>

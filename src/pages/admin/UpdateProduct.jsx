@@ -329,34 +329,14 @@ function UpdateProduct({
             </Typography>
             <hr />
             <div style={{ display: "flex", flexWrap: "wrap", padding: "12px" }}>
-              <input type="radio" id="html" name="fav_language" value="HTML" /> {" "}
-              <label for="html">Electronic Gadgets</label>
-              <br />
-                <input type="radio" id="css" name="fav_language" value="CSS" /> {" "}
-              <label for="css">Saree</label>
-              <br />
-               {" "}
-              <input
-                type="radio"
-                id="javascript"
-                name="fav_language"
-                value="JavaScript"
-              />
-                <label for="javascript">Shirts</label>
-              <input type="radio" id="html" name="fav_language" value="HTML" /> {" "}
-              <label for="html">Pants</label>
-              <br />
-                <input type="radio" id="css" name="fav_language" value="CSS" /> {" "}
-              <label for="css">Trousers</label>
-              <br />
-               {" "}
-              <input
-                type="radio"
-                id="javascript"
-                name="fav_language"
-                value="JavaScript"
-              />
-                <label for="javascript">Footwear</label>
+            {
+                categories.map((cat) => (
+                <div key={cat._id}>
+                <input type="radio" id={cat._id} name="categories" value={cat.id} onChange={(e) => handleChange(e,"category")} />
+                <label htmlFor={cat._id}>{cat.categories}</label><br/>
+                </div>
+                ))
+              }
             </div>
           </Paper>
           <Paper elevation={2} sx={{ margin: "10px auto", marginTop: "0px" }}>

@@ -2,7 +2,9 @@ import React, { useState } from "react";
 import styles from "../assets/css/productPage.module.css";
 import Rating from '@mui/material/Rating';
 import ReactImageZoom from 'react-image-zoom';
+import { addItem } from "../api/cartHelper";
 function ProductMainCard({product,category}) {
+  const [added , setAdded] = React.useState(false);
     const [count,setCount] = useState(1);
     const images = ["https://media.istockphoto.com/photos/plant-and-fan-for-living-room-decor-picture-id1279718203?b=1&k=20&m=1279718203&s=170667a&w=0&h=KclHT_uCZLGphHsk7B9QtRK1dsVf8tLj-xTXIVoQWno=",
                     "https://m.media-amazon.com/images/I/51QqXY279vL._SL1200_.jpg",
@@ -63,8 +65,14 @@ function ProductMainCard({product,category}) {
             <input  className={styles.pCInput} value={count} type="text" disabled />
             <button className={styles.pBu} onClick={increment}>+</button>
         </div>
-        <button className={styles.pAdd}>
-            Add to Cart
+        <button className={styles.pAdd}
+        disabled={added}
+        onClick={() => {
+          addItem(product, () => {
+            setAdded(true);
+          })
+        }}>
+            {added ? "Added": "Add"} to Cart
         </button>
       </div>
     </div>

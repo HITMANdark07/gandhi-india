@@ -173,6 +173,49 @@ nav ul .search-icon input {
   margin: 90px auto;
   flex: 8;
 }
+.cartContainer{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  flex: 3;
+  width: 90%;
+  margin: 0 auto;
+  padding: 10px;
+  box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+}
+.cartSection{
+  display: flex;
+  flex-direction: row;
+  flex: 2;
+  flex-wrap: wrap;
+  padding: 20px;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+}
+.cartSummary{
+  flex:1;
+  padding: 20px;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+}
+.table{
+  font-family: Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+  padding: 10px;
+  width: 100%;
+}
+.td{
+  text-align: center;
+  max-height: 30px;
+  padding: 10px;
+}
+.tr:nth-child(even){background-color: #f2f2f2;}
+.tr:hover {background-color: #ddd;}
+
+.th{
+  padding: 10px;
+  text-align: left;
+  background-color: #04AA6D;
+  color: white;
+}
 @media only screen and (max-width: 600px) {
   nav ul div.items a {
     display: none;
@@ -182,6 +225,15 @@ nav ul .search-icon input {
   }
   .category-section {
     width: 95%;
+  }
+  .cartSection{
+    width: 100% ;
+    justify-content: center;
+    margin: 0 auto;
+  }
+  .cartContainer{
+    flex-direction: column;
+    width: 100%;
   }
   .manageCategoryConatiner{
     flex-direction: column;

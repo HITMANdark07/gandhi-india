@@ -12,6 +12,8 @@ import Drawer from "./Drawer";
 import MenuIcon from '@mui/icons-material/Menu';
 import { isAuthenticated, signout } from "../auth";
 import { getAllCategories } from "../api/category";
+import Badge from '@mui/material/Badge';
+import {ItemTotal} from "../api/cartHelper";
 
 function Header(props) {
   const childFunc = React.useRef(null)
@@ -103,18 +105,20 @@ function Header(props) {
                 </Link>)}
               </span>
             </li>
-            <li>
+            {/* <li>
             <span>
                 <Link to="/wishlist">
                   <FavoriteBorderIcon />
                 </Link>
               </span>
-            </li>
+            </li> */}
             <li>
             <span>
+            <Badge badgeContent={ItemTotal()} color="primary">
                 <Link to="/cart">
                   <ShoppingCartIcon />
                 </Link>
+                </Badge>
               </span>
             </li>
           </div>

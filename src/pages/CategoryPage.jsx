@@ -64,7 +64,7 @@ function CategoryPage({match:{params:{categoryId}}}) {
       <div className="category-section">
           {
             products.map((product) => (
-              <ProductCard title={product.name} id={product._id} mrp={product.mrp} price={product.price} />
+              <ProductCard title={product.name} id={product._id} mrp={product.mrp} price={product.price} prod={product} />
             ))
           }
       </div>
