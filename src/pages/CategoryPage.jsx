@@ -4,10 +4,36 @@ import styles from "../assets/css/CategoryPage.module.css";
 import { Link } from "react-router-dom";
 import Footer from "../components/Footer";
 import ProductCard from "../components/ProductCard";
-function CategoryPage() {
+import { getAllCategories } from "../api/category";
+import { getProductsByCategory } from "../api/product";
+function CategoryPage({match:{params:{categoryId}}}) {
+  const [categories, setCategories] = React.useState([]);
+  const [products,setProducts] = React.useState([]);
+  const allCats = React.useCallback(() => {
+    getAllCategories().then((data) => {
+      // console.log(data);
+      if (data) {
+        setCategories(data);
+      } else {
+        alert("Something Went Wrong");
+      }
+    });
+  }, []);
+  const getProducts = () => {
+    getProductsByCategory(categoryId).then(response => {
+      if(response.length>=0){
+        setProducts(response);
+        console.log(response);
+      }else{
+        alert("Someting went wrong");
+      }
+    })
+  }
   React.useEffect(() => {
-    window.scrollTo({ top: 0, behavior: 'smooth' })
-  }, [])
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    allCats();
+    getProducts();
+  }, [categoryId])
   return (
     <>
       <Header />
@@ -28,29 +54,20 @@ function CategoryPage() {
           </div> 
           <hr/> */}
           <div className={styles.sidenavTitle}>Categories</div>
-          <div className={styles.sidenavContent}>
-            <Link to="/category/electronic-gadgets">Electronic Gadgets</Link>
+          {categories.map((cat) => (
+            <div className={styles.sidenavContent}>
+            <Link to={`/category/${cat.id}`}>{cat.categories}</Link>
           </div>
-          <div className={styles.sidenavContent}>
-            <Link to="/category/handicrafts">HandiCrafts</Link>
-          </div>
-          <div className={styles.sidenavContent}>
-            <Link to="/category/kitchen-appliances">Kitchen Appliances</Link>
-          </div>
-          <div className={styles.sidenavContent}>
-            <Link to="/category/saree">Saree</Link>
-          </div>
+          ))}
         </div>
       </div>
       <div className={styles.productCards} >
       <div className="category-section">
-          <ProductCard/>
-          <ProductCard/>
-          <ProductCard/>
-          <ProductCard/>
-          <ProductCard/>
-          <ProductCard/>
-          <ProductCard/>
+          {
+            products.map((product) => (
+              <ProductCard title={product.name} mrp={product.mrp} price={product.price} />
+            ))
+          }
       </div>
       </div>
       <Footer/>

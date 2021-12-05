@@ -10,9 +10,12 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import EditIcon from "@mui/icons-material/Edit";
+import Box from '@mui/material/Box';
+import Skeleton from '@mui/material/Skeleton';
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import { Button } from "@mui/material";
+import { getAllProducts, deleteProduct, updateProductById } from "../../api/product";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -35,10 +38,43 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 }));
 
 function AllProducts({history}) {
+  const [products, setProducts] = React.useState([]);
+  const [error, setError] = React.useState(false);
+  const [loading, setLoading] = React.useState(true);
+
   React.useEffect(() => {
     window.scrollTo({ top: 0, behavior: "smooth" });
+    getProducts();
   }, []);
-
+  const getProducts = React.useCallback(() => {
+    setLoading(true);
+    getAllProducts().then(response => {
+      if(response.length>0){
+        setProducts(response);
+      }else{
+        setError(true);
+      }
+    })
+  });
+  const toggleStatus =(id, data) => {
+    updateProductById(id, data).then(response => {
+      if(response._id){
+        getProducts();
+        alert("Status Updated");
+      }else{
+        setError(true);
+        alert("Something Went Wrong");
+      }
+    })
+  };
+  const delProducts = (id) => {
+    deleteProduct(id).then(resp => {
+      alert("Product Deleted");
+      getProducts();
+    }).catch(() => {
+      setError(true);
+    })
+  }
   return (
     <>
       <Header />
@@ -46,10 +82,11 @@ function AllProducts({history}) {
         <h2>Products</h2>
         <TableContainer component={Paper}>
             <div style={{margin:"0 auto",display:"flex", flexDirection:"row", justifyContent:"space-between"}}>
-                <h2 style={{paddingLeft:"15px"}}>List of Products</h2>
+                <h2 style={{paddingLeft:"15px"}}>List of Products ({products.length})</h2>
                 <Button
                 variant="contained"
                 startIcon={<AddCircleOutlineIcon />}
+                onClick={() => history.push("/admin/add-products")}
               >
                 ADD PRODUCT
               </Button>
@@ -69,7 +106,9 @@ function AllProducts({history}) {
             </TableHead>
             <TableBody>
               {/* ------------------------   table dumm data  ---------------------------------- */}
-              <StyledTableRow>
+              {products.length>0 ?
+              (products.map((product) => (
+                <StyledTableRow key={product._id}>
                 <StyledTableCell component="th" scope="row">
                   <img
                     src={
@@ -80,61 +119,35 @@ function AllProducts({history}) {
                     height="35px"
                   />
                 </StyledTableCell>
-                <StyledTableCell align="right">Plasma LED</StyledTableCell>
-                <StyledTableCell align="right"><input type="checkbox" /></StyledTableCell>
+                <StyledTableCell align="right">{product.name}</StyledTableCell>
+                <StyledTableCell align="right"><input type="checkbox" checked={product.status==="on" ? true : false} 
+                onClick={() => {
+                  if(product.status==="on"){
+                    toggleStatus(product._id,{status:'off'});
+                  }else{
+                    toggleStatus(product._id,{status:'on'});
+                  }
+                }}
+                /></StyledTableCell>
                 <StyledTableCell align="right">1234</StyledTableCell>
-                <StyledTableCell align="right">In Stock</StyledTableCell>
-                <StyledTableCell align="right">12000.00</StyledTableCell>
-                <StyledTableCell align="right">10000.00</StyledTableCell>
+                <StyledTableCell align="right">{product.qty >0 ? "In Stock" : "Out of Stock"}</StyledTableCell>
+                <StyledTableCell align="right">{product.mrp}</StyledTableCell>
+                <StyledTableCell align="right">{product.price}</StyledTableCell>
                 <StyledTableCell align="right">
-                    <EditIcon button style={{ cursor: "pointer" }} onClick={() => history.push(`/admin/update-product/asdsadsa`)} />{" "}
-                    <DeleteForeverIcon style={{ cursor: "pointer" }} />{" "}
+                    <EditIcon button style={{ cursor: "pointer" }} onClick={() => history.push(`/admin/update-product/${product._id}`)} />{" "}
+                    <DeleteForeverIcon style={{ cursor: "pointer" }} onClick={() => delProducts(product._id)} />{" "}
                   </StyledTableCell>
               </StyledTableRow>
-              <StyledTableRow>
-                <StyledTableCell component="th" scope="row">
-                  <img
-                    src={
-                      "https://image.shutterstock.com/image-illustration/mobile-devices-wireless-communication-technology-260nw-136413251.jpg"
-                    }
-                    alt="asdasdsdad"
-                    width="35px"
-                    height="35px"
-                  />
-                </StyledTableCell>
-                <StyledTableCell align="right">Plasma LED</StyledTableCell>
-                <StyledTableCell align="right"><input type="checkbox" /></StyledTableCell>
-                <StyledTableCell align="right">1234</StyledTableCell>
-                <StyledTableCell align="right">In Stock</StyledTableCell>
-                <StyledTableCell align="right">12000.00</StyledTableCell>
-                <StyledTableCell align="right">10000.00</StyledTableCell>
-                <StyledTableCell align="right">
-                    <EditIcon button style={{ cursor: "pointer" }} onClick={() => history.push(`/admin/update-product/asdsadsa`)} />{" "}
-                    <DeleteForeverIcon style={{ cursor: "pointer" }} />{" "}
-                  </StyledTableCell>
-              </StyledTableRow>
-              <StyledTableRow>
-                <StyledTableCell component="th" scope="row">
-                  <img
-                    src={
-                      "https://image.shutterstock.com/image-illustration/mobile-devices-wireless-communication-technology-260nw-136413251.jpg"
-                    }
-                    alt="asdasdsdad"
-                    width="35px"
-                    height="35px"
-                  />
-                </StyledTableCell>
-                <StyledTableCell align="right">Plasma LED</StyledTableCell>
-                <StyledTableCell align="right"><input type="checkbox" /></StyledTableCell>
-                <StyledTableCell align="right">1234</StyledTableCell>
-                <StyledTableCell align="right">In Stock</StyledTableCell>
-                <StyledTableCell align="right">12000.00</StyledTableCell>
-                <StyledTableCell align="right">10000.00</StyledTableCell>
-                <StyledTableCell align="right">
-                    <EditIcon button style={{ cursor: "pointer" }} onClick={() => history.push(`/admin/update-product/asdsadsa`)} />{" "}
-                    <DeleteForeverIcon style={{ cursor: "pointer" }} />{" "}
-                  </StyledTableCell>
-              </StyledTableRow>
+              ))) : (
+                <Box sx={{width:1100 }}>
+                  <Skeleton animation="wave"/><Skeleton animation="wave"/>
+                  <Skeleton animation="wave" /><Skeleton animation="wave"/>
+                  <Skeleton animation="wave" /><Skeleton animation="wave"/>
+                  <Skeleton animation="wave" /><Skeleton animation="wave"/>
+                  <Skeleton animation="wave" /><Skeleton animation="wave" />
+                </Box>
+              )}
+
               {/* ------------------------   table dumm data  ---------------------------------- */}
               {/* {rows.map((row) => (
               <StyledTableRow key={row.name}>

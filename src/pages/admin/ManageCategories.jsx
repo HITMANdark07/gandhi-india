@@ -22,7 +22,7 @@ import EditIcon from "@mui/icons-material/Edit";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import uuid from 'react-uuid';
 import { withRouter } from "react-router";
-import { createCategory, getAllCategories } from "../../api/category";
+import { createCategory, getAllCategories, updateCategory } from "../../api/category";
 import { API } from "../../config";
 import { isAuthenticated } from "../../auth";
 
@@ -141,6 +141,17 @@ function ManageCategories({history}) {
       <Alert severity="error">Something Went Wrong</Alert>
     </div>
   );
+  const toggleStatus = (id, data) => {
+    updateCategory(id, data).then(response => {
+      if(response._id){
+        allCats();
+        alert("Status Updated");
+      }else{
+        setError(true);
+        alert("Something Went Wrong");
+      }
+    })
+  }
 
   return (
     <>
@@ -281,14 +292,20 @@ function ManageCategories({history}) {
                     {categori.categories}
                   </StyledTableCell>
                   <StyledTableCell align="right">
-                    <input type="checkbox" />
+                    <input type="checkbox" checked={categori.status===10 ? true:false} onClick={() =>{
+                      if(categori.status===10){
+                        toggleStatus(categori._id, {status:0});
+                      }else{
+                        toggleStatus(categori._id, {status:10});
+                      }
+                    }} />
                   </StyledTableCell>
                   <StyledTableCell align="right">
                     dummy-data
                   </StyledTableCell>
                   <StyledTableCell align="right">Primary</StyledTableCell>
                   <StyledTableCell align="right">
-                    <EditIcon button={true} style={{ cursor: "pointer" }} onClick={() => history.push(`/admin/update-category/jnasbbs`)} />{" "}
+                    <EditIcon button={true} style={{ cursor: "pointer" }} onClick={() => history.push(`/admin/update-category/${categori._id}`)} />{" "}
                     <DeleteForeverIcon style={{ cursor: "pointer" }} onClick={() => delCategories(categori._id)} />{" "}
                   </StyledTableCell>
                 </StyledTableRow>

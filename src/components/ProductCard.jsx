@@ -4,10 +4,10 @@ import Rating from '@mui/material/Rating';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import { withRouter } from "react-router";
 
-function ProductCard({history}) {
+function ProductCard({history, mrp, price, title}) {
   return (
       <div className={styles.productCard}>
-          <img className={styles.productImage} src={`https://cdn.shopify.com/s/files/1/0876/4704/products/nora-fatehi-in-burgundy-saree-with-raw-silk-blouse-celebrity-devnaagri-925092_800x.jpg?v=1596512619`} alt="productssss"/>
+          <img className={styles.productImage} src={`https://thumbs.dreamstime.com/b/product-text-made-wooden-cube-white-background-181800372.jpg`} alt="productssss"/>
           <div className={styles.productPreview}
            onClick={() => history.push(`/product/asdaa`)}
             >
@@ -15,11 +15,11 @@ function ProductCard({history}) {
           </div>
           <div className={styles.productContent}>
               <button className={styles.addCartbu}>Add to Cart</button>
-              <h4>Silk Saree</h4>
+              <h4>{title ? title : "Silk Saree"}</h4>
               <div><Rating name="read-only" value={8} readOnly/></div>
               <div className={styles.rates}>
-                  <div className={styles.mrp}>₹ 1500.00/-</div>
-                  <div className={styles.sp}>₹ 1300.00/-</div>
+                  <div className={styles.mrp}>₹ {mrp ? mrp.toFixed(2) : "12000"}/-</div>
+                  <div className={styles.sp}>₹ {price ? price.toFixed(2): "10000"}/-</div>
               </div>
           </div>
       </div>

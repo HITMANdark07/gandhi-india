@@ -5,11 +5,23 @@ import TinySlider from "tiny-slider-react";
 import Header from "../components/Header";
 import ProductCard from "../components/ProductCard";
 import Footer from "../components/Footer";
+import { getAllCategories } from "../api/category";
 
 function Home() {
+  const [categories, setCategories] = React.useState([]);
+  const allCats = React.useCallback(() => {
+    getAllCategories().then(data => {
+      console.log(data);
+      if(data.length>0){
+        setCategories(data);
+      }
+    }) 
+  },[]);
   React.useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'smooth' })
-  }, [])
+    allCats();
+  }, []);
+  
   const settings = {
     lazyload: true,
     nav: false,
@@ -39,10 +51,9 @@ function Home() {
         </div>
 
         <div className="category-section">
-          <CategoryCard />
-          <CategoryCard />
-          <CategoryCard />
-          <CategoryCard />
+          {categories.filter(cat => cat.status===10).map((cat) => 
+            <CategoryCard key={cat._id} title={cat.categories} />
+          )}
         </div>
         <div className="categoryTop">
           FEATURE PRODUCTS

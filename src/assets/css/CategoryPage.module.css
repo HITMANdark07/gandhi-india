@@ -36,7 +36,7 @@
     display: none;
   }
   .productCards {
-    transform: translateX(-10%);
+    margin-left: 0;
     margin-top: 80px;
   }
 }

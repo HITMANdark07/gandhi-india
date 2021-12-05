@@ -19,7 +19,7 @@ function Header(props) {
   const allCats = React.useCallback(() => {
     getAllCategories().then(data => {
       // console.log(data);
-      setCategorys(data);
+      setCategorys(data.filter(cat => cat.status===10));
     }) 
   },[]);
   React.useEffect(() => {
@@ -44,7 +44,7 @@ function Header(props) {
             {categorys.map((cat) => (
               <li key={cat._id}>
               <span>
-                <Link to={`/category/${cat._id}`}>{cat.categories}</Link>
+                <Link to={`/category/${cat.id}`}>{cat.categories}</Link>
               </span>
             </li>
             ))}

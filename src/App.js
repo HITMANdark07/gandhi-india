@@ -27,7 +27,7 @@ function App() {
            <Route path="/signup" exact component={Signup} />
            <PrivateRoute path="/cart" exact component={Cart} />
            <PrivateRoute path="/wishlist" exact component={Wishlist} />
-           <Route path="/category/:categoryName" exact component={CategoryPage} />
+           <Route path="/category/:categoryId" exact component={CategoryPage} />
            <Route path="/product/:productId" exact component={ProductPage} />
           {/*<Route path="/shop" exact component={Shop} /> */}
           {/* <PrivateRoute path="/user/dashboard" exact component={Dashboard} /> */}

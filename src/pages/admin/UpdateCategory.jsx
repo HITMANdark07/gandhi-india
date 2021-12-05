@@ -20,9 +20,12 @@ import { Button } from "@mui/material";
 import SaveIcon from "@mui/icons-material/Save";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
-import uuid from 'react-uuid';
+import { API } from "../../config";
+import { getAllCategories, updateCategory } from "../../api/category";
+import { isAuthenticated } from "../../auth";
+import { withRouter } from "react-router";
 
-function UpdateCategory() {
+function UpdateCategory({match:{params:{categoryId}}, history}) {
   const StyledTableCell = styled(TableCell)(({ theme }) => ({
     [`&.${tableCellClasses.head}`]: {
       backgroundColor: theme.palette.common.black,
@@ -32,7 +35,6 @@ function UpdateCategory() {
       fontSize: 14,
     },
   }));
-  const id = uuid().split("-")[4];
   const StyledTableRow = styled(TableRow)(({ theme }) => ({
     "&:nth-of-type(odd)": {
       backgroundColor: theme.palette.action.hover,
@@ -43,10 +45,12 @@ function UpdateCategory() {
     },
   }));
   React.useEffect(() => {
-    window.scrollTo({ top: 0, behavior: 'smooth' })
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    allCats();
   }, [])
+  const [categories, setCategories] = React.useState([]);
   const [cat, setCat] = React.useState("Primary");
-  const [title, setTitle] = React.useState("");
+  const [category, setCategory] = React.useState("");
   const [error, setError] = React.useState(false);
   const [loading, setLoading] = React.useState(false);
   const [description, setDescription] = React.useState("");
@@ -65,20 +69,44 @@ function UpdateCategory() {
       console.log("please select your file");
     }
   };
+  const allCats = React.useCallback(() => {
+    getAllCategories().then(data => {
+      // console.log(data);
+      setCategories(data);
+    }) 
+  },[]);
   const handleChange = (event, name) => {
+    setError(false);
     switch (name) {
-      case "title":
-        setTitle(event.target.value);
-        break;
       case "description":
         setDescription(event.target.value);
+        break;
+      case "cat":
+        setCat(event.target.value);
+      case "category":
+        setCategory(event.target.value);
         break;
       default:
     }
   };
+  const delCategories = (id) => {
+    fetch(`${API}/category/${id}`,{
+      method:"DELETE",
+      headers:{
+          Accept:'application/json',
+          "Content-Type": "application/json",
+          token: `Bearer ${isAuthenticated().accessToken}`
+      },
+  }).then(() => {
+    alert("Category Deleted");
+    allCats();
+  }).catch(() => {
+    alert("Something went wrong");
+  })
+  }
   const showError = () => (
     <div style={{ display: error ? "" : "none", alignItems: "center" }}>
-      <Alert severity="error">{error}</Alert>
+      <Alert severity="error">Something Went Wrong</Alert>
     </div>
   );
   const showLoading = () => {
@@ -88,6 +116,41 @@ function UpdateCategory() {
       </div>
     );
   };
+  const toggleStatus = (id, data) => {
+    updateCategory(id, data).then(response => {
+      if(response._id){
+        allCats();
+        alert("Status Updated");
+      }else{
+        setError(true);
+        alert("Something Went Wrong");
+      }
+    })
+  } 
+  const clickSubmit = () => {
+    setLoading(true);
+    if(category.trim()!==""){
+      const data ={
+        categories:category
+      };
+      updateCategory(categoryId, data).then(response => {
+        if(response._id){
+          setLoading(false);
+          allCats();
+          setCategory("");
+          alert("Category Updated");
+        }else{
+          setLoading(false);
+          alert("Something went Wrong");
+        }
+      }).catch(() => {
+        setLoading(false);
+      })
+    }else{
+      setError(true);
+      setLoading(false);
+    }
+  }
   return (
     <>
       <Header />
@@ -105,7 +168,7 @@ function UpdateCategory() {
           <TableContainer component={Paper}>
             <Table sx={{ minWidth: 300 }} aria-label="customized table">
               <TableHead>
-                <h2 style={{ padding: "10px" }}>Create New Category</h2>
+                <h2 style={{ padding: "10px" }}>Update Category</h2>
               </TableHead>
             </Table>
             <hr />
@@ -119,8 +182,8 @@ function UpdateCategory() {
               <TextField
                 id="standard-basic"
                 label="Category Name"
-                value={title}
-                onChange={(e) => handleChange(e, "title")}
+                value={category}
+                onChange={(e) => handleChange(e, "category")}
                 variant="outlined"
                 sx={{ marginTop: "20px" }}
               />
@@ -178,8 +241,10 @@ function UpdateCategory() {
               {showLoading()}
               <Button
                 variant="contained"
+                onClick={clickSubmit}
                 sx={{ margin: "20px auto", width: "90%" }}
                 startIcon={<SaveIcon />}
+                startIcon={loading ? <CircularProgress size={20} color="inherit" /> : <SaveIcon />}
               >
                 SAVE
               </Button>
@@ -210,7 +275,9 @@ function UpdateCategory() {
               </TableHead>
               <TableBody>
                 {/* ------------------------   table dumm data  ---------------------------------- */}
-                <StyledTableRow>
+                {
+                  categories.map((categori, index) => (
+                  <StyledTableRow key={index}>
                   <StyledTableCell component="th" scope="row">
                     <img
                       src={
@@ -222,72 +289,30 @@ function UpdateCategory() {
                     />
                   </StyledTableCell>
                   <StyledTableCell align="right">
-                    Electronic Gadgets
+                    {categori.categories}
                   </StyledTableCell>
                   <StyledTableCell align="right">
-                    <input type="checkbox" />
-                  </StyledTableCell>
-                  <StyledTableCell align="right">
-                    electronic-gadget
-                  </StyledTableCell>
-                  <StyledTableCell align="right">Primary</StyledTableCell>
-                  <StyledTableCell align="right">
-                    <EditIcon button style={{ cursor: "pointer" }} />{" "}
-                    <DeleteForeverIcon style={{ cursor: "pointer" }} />{" "}
-                  </StyledTableCell>
-                </StyledTableRow>
-                <StyledTableRow>
-                  <StyledTableCell component="th" scope="row">
-                    <img
-                      src={
-                        "https://image.shutterstock.com/image-illustration/mobile-devices-wireless-communication-technology-260nw-136413251.jpg"
+                    <input type="checkbox" checked={categori.status===10 ? true:false} onClick={() =>{
+                      if(categori.status===10){
+                        toggleStatus(categori._id, {status:0});
+                      }else{
+                        toggleStatus(categori._id, {status:10});
                       }
-                      alt="asdasdsdad"
-                      width="35px"
-                      height="35px"
-                    />
+                    }} />
                   </StyledTableCell>
                   <StyledTableCell align="right">
-                    Electronic Gadgets
-                  </StyledTableCell>
-                  <StyledTableCell align="right">
-                    <input type="checkbox" />
-                  </StyledTableCell>
-                  <StyledTableCell align="right">
-                    electronic-gadget
+                    dummy-data
                   </StyledTableCell>
                   <StyledTableCell align="right">Primary</StyledTableCell>
                   <StyledTableCell align="right">
-                    <EditIcon button style={{ cursor: "pointer" }} />{" "}
-                    <DeleteForeverIcon style={{ cursor: "pointer" }} />{" "}
+                    <EditIcon button={true} style={{ cursor: "pointer" }} onClick={() => history.push(`/admin/update-category/${categori._id}`)} />{" "}
+                    <DeleteForeverIcon style={{ cursor: "pointer" }} onClick={() => delCategories(categori._id)} />{" "}
                   </StyledTableCell>
                 </StyledTableRow>
-                <StyledTableRow>
-                  <StyledTableCell component="th" scope="row">
-                    <img
-                      src={
-                        "https://image.shutterstock.com/image-illustration/mobile-devices-wireless-communication-technology-260nw-136413251.jpg"
-                      }
-                      alt="asdasdsdad"
-                      width="35px"
-                      height="35px"
-                    />
-                  </StyledTableCell>
-                  <StyledTableCell align="right">
-                    Electronic Gadgets
-                  </StyledTableCell>
-                  <StyledTableCell align="right">
-                    <input type="checkbox" />
-                  </StyledTableCell>
-                  <StyledTableCell align="right">
-                    electronic-gadget
-                  </StyledTableCell>
-                  <StyledTableCell align="right">Primary</StyledTableCell>
-                  <StyledTableCell align="right">
-                    <EditIcon button style={{ cursor: "pointer" }} />{" "}
-                    <DeleteForeverIcon style={{ cursor: "pointer" }} />{" "}
-                  </StyledTableCell>
-                </StyledTableRow>
+                
+                ))
+                }
+                
                 {/* ------------------------   table dumm data  ---------------------------------- */}
                 {/* {rows.map((row) => (
               <StyledTableRow key={row.name}>
@@ -309,4 +334,4 @@ function UpdateCategory() {
   );
 }
 
-export default UpdateCategory;
+export default withRouter(UpdateCategory);

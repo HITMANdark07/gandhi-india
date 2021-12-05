@@ -131,7 +131,7 @@ function Drawer({ childFunc, history, cats }) {
             <ListItem
               button
               key={cat._id}
-              onClick={() => history.push(`/category/${cat._id}`)}
+              onClick={() => history.push(`/category/${cat.id}`)}
             >
               <ListItemAvatar>
                 <Avatar>

@@ -21,9 +21,7 @@ export const updateCategory = (id,data) => {
             "Content-Type": "application/json",
             token: `Bearer ${isAuthenticated().accessToken}`
         },
-        body: JSON.stringify({
-            categories: data.category,
-        })
+        body: JSON.stringify(data)
     }).then(response =>  response.json()
     ).catch(err =>err))
 }
