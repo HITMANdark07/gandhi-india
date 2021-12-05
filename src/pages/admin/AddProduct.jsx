@@ -322,7 +322,7 @@ function AddProduct() {
               {
                 categories.map((cat) => (
                 <div key={cat._id}>
-                <input type="radio" id={cat._id} name="categories" value={cat._id} onChange={(e) => handleChange(e,"category")} />
+                <input type="radio" id={cat._id} name="categories" value={cat.id} onChange={(e) => handleChange(e,"category")} />
                 <label htmlFor={cat._id}>{cat.categories}</label><br/>
                 </div>
                 ))
