@@ -1,7 +1,7 @@
 import React from "react";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
-import { getCart } from "../api/cartHelper";
+import { getCart, emptyCart } from "../api/cartHelper";
 import CartCard from "../components/CartCard";
 import ShoppingCartCheckoutIcon from '@mui/icons-material/ShoppingCartCheckout';
 import { Button, TextField } from "@mui/material";
@@ -60,7 +60,9 @@ function Cart({history}) {
                       startIcon={<ShoppingCartCheckoutIcon/>}
                       size="large"
                       onClick={()=> {
-                        history.push("/thank-you");
+                        emptyCart(() => {
+                          history.push("/thank-you");
+                        })
                       }}
                       fullWidth
                       >PLACE ORDER</Button> 
