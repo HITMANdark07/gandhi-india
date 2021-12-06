@@ -14,6 +14,7 @@ import { isAuthenticated, signout } from "../auth";
 import { getAllCategories } from "../api/category";
 import Badge from '@mui/material/Badge';
 import {ItemTotal} from "../api/cartHelper";
+import { wishTotal } from "../api/wishHelper";
 
 function Header(props) {
   const childFunc = React.useRef(null)
@@ -105,13 +106,15 @@ function Header(props) {
                 </Link>)}
               </span>
             </li>
-            {/* <li>
+            <li>
             <span>
+            <Badge badgeContent={wishTotal()} color="primary">
                 <Link to="/wishlist">
                   <FavoriteBorderIcon />
                 </Link>
+            </Badge>
               </span>
-            </li> */}
+            </li>
             <li>
             <span>
             <Badge badgeContent={ItemTotal()} color="primary">

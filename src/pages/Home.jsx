@@ -27,7 +27,6 @@ function Home() {
           category:d.categories,
           prods:res
         };
-        console.log(s);
         if(s.prods.length>0){
           setProducts(prev => [...prev,{...s}]);
         }

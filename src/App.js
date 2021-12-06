@@ -5,7 +5,6 @@ import './App.css';
 import Signin from "./pages/Signin";
 import Signup from "./pages/Signup";
 import Cart from "./pages/Cart";
-import Wishlist from "./pages/Wishlist";
 import CategoryPage from "./pages/CategoryPage";
 import ProductPage from "./pages/ProductPage";
 import ManageOrders from "./pages/admin/ManageOrders";
@@ -18,6 +17,7 @@ import AddProduct from "./pages/admin/AddProduct";
 import UpdateProduct from "./pages/admin/UpdateProduct";
 import UpdateCategory from "./pages/admin/UpdateCategory";
 import ThankYou from "./pages/ThankYou";
+import Wish from "./pages/Wish";
 
 function App() {
   return (
@@ -27,7 +27,7 @@ function App() {
           <Route path="/signin" exact component={Signin} />
            <Route path="/signup" exact component={Signup} />
            <PrivateRoute path="/cart" exact component={Cart} />
-           <PrivateRoute path="/wishlist" exact component={Wishlist} />
+           <PrivateRoute path="/wishlist" exact component={Wish} />
            <PrivateRoute path="/thank-you" exact component={ThankYou} />
            <Route path="/category/:categoryId" exact component={CategoryPage} />
            <Route path="/product/:productId" exact component={ProductPage} />
