@@ -3,7 +3,8 @@ import styles from "../assets/css/productPage.module.css";
 import Rating from '@mui/material/Rating';
 import ReactImageZoom from 'react-image-zoom';
 import { addItem } from "../api/cartHelper";
-function ProductMainCard({product,category}) {
+import { withRouter } from "react-router-dom";
+function ProductMainCard({history,product,category}) {
   const [added , setAdded] = React.useState(false);
     const [count,setCount] = useState(1);
     const images = ["https://media.istockphoto.com/photos/plant-and-fan-for-living-room-decor-picture-id1279718203?b=1&k=20&m=1279718203&s=170667a&w=0&h=KclHT_uCZLGphHsk7B9QtRK1dsVf8tLj-xTXIVoQWno=",
@@ -25,7 +26,6 @@ function ProductMainCard({product,category}) {
     const imageSetter = (index) => {
       setig(images[index]);
     }
-    
   return (
     <div className={styles.pContainer}>
       <div style={{flex:1,padding:"20px",flexDirection:"column", justifyContent:"center"}}
@@ -68,9 +68,12 @@ function ProductMainCard({product,category}) {
         <button className={styles.pAdd}
         disabled={added}
         onClick={() => {
-          addItem(product, () => {
-            setAdded(true);
-          })
+          if(product._id){
+            addItem(product, () => {
+              setAdded(true);
+              history.push(history.location.pathname);
+            })
+          }
         }}>
             {added ? "Added": "Add"} to Cart
         </button>
@@ -79,4 +82,4 @@ function ProductMainCard({product,category}) {
   );
 }
 
-export default ProductMainCard;
+export default withRouter(ProductMainCard);

@@ -147,7 +147,6 @@ nav ul .search-icon input {
 .category-section {
   display: flex;
   flex-direction: row;
-  justify-content: space-evenly;
   flex-wrap: wrap;
   margin: 20px auto;
   width: 90%;
@@ -156,8 +155,8 @@ nav ul .search-icon input {
   width: 80%;
   margin: 0 auto;
   margin-top: 50px;
-  background-color: gray;
-  color: white;
+  background-color: #26912526;
+  color: black;
   border-radius: 20px;
   text-align: center;
   padding: 8px;
@@ -215,6 +214,24 @@ nav ul .search-icon input {
   text-align: left;
   background-color: #04AA6D;
   color: white;
+}
+.timer-wrapper {
+  display: flex;
+  justify-content: center;
+}
+.timer {
+  font-family: "Montserrat";
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.text {
+  color: #aaa;
+}
+
+.value {
+  font-size: 40px;
 }
 @media only screen and (max-width: 600px) {
   nav ul div.items a {

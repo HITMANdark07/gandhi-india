@@ -37,22 +37,22 @@ function Footer() {
         <div className="middle box">
           <div className="topic">Our Services</div>
           <div className="mid-topic">
-            <Link to="/">Web Design, Development</Link>
+            <Link to="/">Link 1</Link>
           </div>
           <div className="mid-topic">
-            <Link to="/">Web UX Design, Reasearch</Link>
+            <Link to="/">Link 2</Link>
           </div>
           <div className="mid-topic">
-            <Link to="/">Web User Interface Design</Link>
+            <Link to="/">Link 3</Link>
           </div>
           <div className="mid-topic">
-            <Link to="/">Theme Development, Design</Link>
+            <Link to="/">Link 4</Link>
           </div>
           <div className="mid-topic">
-            <Link to="/">Mobile Application Design</Link>
+            <Link to="/">Link 5</Link>
           </div>
           <div className="mid-topic">
-            <Link to="/">Wire raming & Prototyping</Link>
+            <Link to="/">Link 6</Link>
           </div>
         </div>
         <div className="right box">

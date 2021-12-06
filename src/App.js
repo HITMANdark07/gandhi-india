@@ -17,6 +17,7 @@ import AllProducts from "./pages/admin/AllProducts";
 import AddProduct from "./pages/admin/AddProduct";
 import UpdateProduct from "./pages/admin/UpdateProduct";
 import UpdateCategory from "./pages/admin/UpdateCategory";
+import ThankYou from "./pages/ThankYou";
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
            <Route path="/signup" exact component={Signup} />
            <PrivateRoute path="/cart" exact component={Cart} />
            <PrivateRoute path="/wishlist" exact component={Wishlist} />
+           <PrivateRoute path="/thank-you" exact component={ThankYou} />
            <Route path="/category/:categoryId" exact component={CategoryPage} />
            <Route path="/product/:productId" exact component={ProductPage} />
           {/*<Route path="/shop" exact component={Shop} /> */}
