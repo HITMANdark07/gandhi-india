@@ -38,7 +38,6 @@ function Home() {
   //     return res;
   //   })
   // }
-  console.log(products);
   React.useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'smooth' })
     allCats();

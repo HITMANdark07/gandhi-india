@@ -25,6 +25,7 @@ function Header(props) {
       setCategorys(data.filter(cat => cat.status===10));
     }) 
   },[]);
+  const [searchTerm , setSearchTerm] =React.useState("");
   React.useEffect(() => {
     allCats();
   }, [])
@@ -86,7 +87,16 @@ function Header(props) {
               <TextField
                 id="input-with-sx"
                 label="Search"
-                variant="standard"
+                value={searchTerm}
+                onChange={(e) => {
+                  setSearchTerm(e.target.value);
+                }}
+                onKeyPress={(e) => {
+                  var keyCode = e.code || e.key;
+                  if (keyCode == 'Enter' && e.target.value.trim()!=""){
+                    props.history.push(`/search/${e.target.value}`);
+                  }
+                }}
               />
             </Box>
             </span>

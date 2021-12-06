@@ -9,7 +9,8 @@ import CategoryPage from "./pages/CategoryPage";
 import ProductPage from "./pages/ProductPage";
 import ManageOrders from "./pages/admin/ManageOrders";
 import AdminRoute from "./auth/AdminRoute";
-import PrivateRoute from "./auth/PrivateRoute"
+import PrivateRoute from "./auth/PrivateRoute";
+import SearchPage from "./pages/SearchPage";
 import ManageCategories from "./pages/admin/ManageCategories";
 import ManageSpecifications from "./pages/admin/ManageSpecifications";
 import AllProducts from "./pages/admin/AllProducts";
@@ -30,6 +31,7 @@ function App() {
            <PrivateRoute path="/wishlist" exact component={Wish} />
            <PrivateRoute path="/thank-you" exact component={ThankYou} />
            <Route path="/category/:categoryId" exact component={CategoryPage} />
+           <Route path="/search/:searchTerm" exact component={SearchPage} />
            <Route path="/product/:productId" exact component={ProductPage} />
           {/*<Route path="/shop" exact component={Shop} /> */}
           {/* <PrivateRoute path="/user/dashboard" exact component={Dashboard} /> */}
