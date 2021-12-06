@@ -48,7 +48,7 @@ function ProductPage({history,match:{params:{productId}}}) {
         <div className="category-section">
         {
           products.map((pro) => (
-            <ProductCard id={pro._id} title={pro.name} mrp={pro.mrp} price={pro.price} />
+            <ProductCard prod={pro} id={pro._id} title={pro.name} mrp={pro.mrp} price={pro.price} />
           ))
         }
       </div>
