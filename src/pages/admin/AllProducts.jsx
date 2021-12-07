@@ -16,6 +16,7 @@ import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import { Button } from "@mui/material";
 import { getAllProducts, deleteProduct, updateProductById } from "../../api/product";
+import makeToast from "../../Toaster";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -39,7 +40,6 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 
 function AllProducts({history}) {
   const [products, setProducts] = React.useState([]);
-  const [error, setError] = React.useState(false);
   const [loading, setLoading] = React.useState(true);
 
   React.useEffect(() => {
@@ -52,7 +52,7 @@ function AllProducts({history}) {
       if(response.length>0){
         setProducts(response);
       }else{
-        setError(true);
+        makeToast("error","Something Went Wrong");
       }
     })
   });
@@ -60,25 +60,24 @@ function AllProducts({history}) {
     updateProductById(id, data).then(response => {
       if(response._id){
         getProducts();
-        alert("Status Updated");
+        makeToast("success","Status Updated Successfully");
       }else{
-        setError(true);
-        alert("Something Went Wrong");
+        makeToast("error","Something Went Wrong");
       }
     })
   };
   const delProducts = (id) => {
     deleteProduct(id).then(resp => {
-      alert("Product Deleted");
+      makeToast("success","Product Deleted Successfully");
       getProducts();
     }).catch(() => {
-      setError(true);
+      makeToast("error","Failed to update Status");
     })
   }
   return (
     <>
       <Header />
-      <div style={{ marginTop: "90px", width: "90%", margin: "80px auto" }}>
+      <div style={{ marginTop: "110px", width: "90%", margin: "80px auto" }}>
         <h2>Products</h2>
         <TableContainer component={Paper}>
             <div style={{margin:"0 auto",display:"flex", flexDirection:"row", justifyContent:"space-between"}}>
@@ -130,7 +129,7 @@ function AllProducts({history}) {
                 }}
                 /></StyledTableCell>
                 <StyledTableCell align="right">1234</StyledTableCell>
-                <StyledTableCell align="right">{product.qty >0 ? "In Stock" : "Out of Stock"}</StyledTableCell>
+                <StyledTableCell align="right" ><span style={{backgroundColor:product.qty>0? "green":"red",width:"40px", padding:"8px",color:"white", fontWeight:"500", borderRadius:"15px"}}>{product.qty >0 ? "In Stock" : "Out of Stock"}</span></StyledTableCell>
                 <StyledTableCell align="right">{product.mrp}</StyledTableCell>
                 <StyledTableCell align="right">{product.price}</StyledTableCell>
                 <StyledTableCell align="right">

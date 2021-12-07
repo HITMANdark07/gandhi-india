@@ -6,6 +6,7 @@ import { addItem } from "../api/cartHelper";
 import { withRouter } from "react-router";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import { addWish } from "../api/wishHelper";
+import makeToast from "../Toaster";
 
 function ProductCard({ history, id, mrp, price, title, prod }) {
   const [added, setAdded] = React.useState(false);
@@ -27,10 +28,13 @@ function ProductCard({ history, id, mrp, price, title, prod }) {
           borderRadius: "30px",
         }}
         onClick={() => {
-            addWish(prod,() => {
+            if(!wish){
+              addWish(prod,() => {
                 history.push(history.location.pathname);
                 setWish(true);
+                makeToast("success",`${prod.name} added to Wishlist`);
             })
+            }
         }}
       >
         <FavoriteIcon sx={{ fontSize: 30 }} color={wish ? "" : "error"} />
@@ -61,6 +65,7 @@ function ProductCard({ history, id, mrp, price, title, prod }) {
             if (prod._id) {
               addItem(prod, () => {
                 setAdded(true);
+                makeToast("success",`${prod.name} added to Cart`);
                 history.push(history.location.pathname);
               });
             }

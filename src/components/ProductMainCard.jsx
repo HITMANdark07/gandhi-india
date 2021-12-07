@@ -4,6 +4,7 @@ import Rating from '@mui/material/Rating';
 import ReactImageZoom from 'react-image-zoom';
 import { addItem } from "../api/cartHelper";
 import { withRouter } from "react-router-dom";
+import makeToast from "../Toaster";
 function ProductMainCard({history,product,category}) {
   const [added , setAdded] = React.useState(false);
     const [count,setCount] = useState(1);
@@ -71,6 +72,7 @@ function ProductMainCard({history,product,category}) {
           if(product._id){
             addItem(product, () => {
               setAdded(true);
+              makeToast("success",`${product.name} added to Cart`);
               history.push(history.location.pathname);
             })
           }

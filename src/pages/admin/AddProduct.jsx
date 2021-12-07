@@ -20,6 +20,7 @@ import { getAllCategories } from "../../api/category";
 import { isAuthenticated } from "../../auth";
 import { createProduct } from "../../api/product";
 import { EditorState } from "draft-js";
+import makeToast from "../../Toaster";
 
 function AddProduct() {
 
@@ -30,7 +31,7 @@ function AddProduct() {
       if(data){
         setCategories(data);
       }else{
-        setError(true);
+        makeToast("error","Something Went Wrong");
       }
     }) 
   },[]);
@@ -48,7 +49,6 @@ function AddProduct() {
   const [quantity, setQuantity] = React.useState(0);
   const [shortDes, setShortDesc] = React.useState("");
   const [fullDes, setFullDesc] = React.useState("");
-  const [error, setError] = React.useState(false);
   const [loading, setLoading] = React.useState(false);
   const [image, setImage] = React.useState(null);
   const [showimage, setShowImage] = React.useState(
@@ -63,7 +63,6 @@ function AddProduct() {
         setImage(selectedFile);
       } else {
         setImage(null);
-        setError(false);
       }
     } else {
       console.log("please select your file");
@@ -71,7 +70,6 @@ function AddProduct() {
   };
   const clickSubmit = (event) => {
     event.preventDefault();
-    setError(false);
     setLoading(true);
     const data = {
       id:uuid().split("-")[4],
@@ -94,7 +92,7 @@ function AddProduct() {
     createProduct(data).then(response => {
       if(response._id){
         setLoading(false);
-        setError(false);
+        makeToast("success",`${response.name} product created`);
         setTitle("");
         setRegPrice(0);
         setSalePrice(0);
@@ -106,13 +104,12 @@ function AddProduct() {
         console.log(response);
       }else{
         setLoading(false);
-        setError(true);
+        makeToast("error", "Something Wet Wrong");
       }
     })
   
   }
   const handleChange = (event, name) => {
-    setError(false);
     switch (name) {
       case "title":
         setTitle(event.target.value);
@@ -135,11 +132,6 @@ function AddProduct() {
       default:
     }
   };
-  const showError = () => (
-    <div style={{ display: error ? "" : "none", alignItems: "center" }}>
-      <Alert severity="error">Something Went Wrong</Alert>
-    </div>
-  );
   const wrapperStyle = {
     border: "1px solid #969696",
   };
@@ -181,7 +173,6 @@ function AddProduct() {
                 margin: "20px",
               }}
             >
-              {showError()}
               <FormControl sx={{ marginTop: "20px" }}>
                 <InputLabel id="demo-simple-select-label">Seller</InputLabel>
                 <Select
@@ -293,7 +284,6 @@ function AddProduct() {
                 </Select>
               </FormControl> */}
 
-              {showError()}
               <Button
                 variant="contained"
                 sx={{ margin: "20px auto", width: "90%" }}

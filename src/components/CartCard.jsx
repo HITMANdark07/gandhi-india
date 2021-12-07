@@ -3,6 +3,7 @@ import styles from "../assets/css/product.module.css";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import { removeItem, updateItem } from "../api/cartHelper";
 import { withRouter } from "react-router";
+import makeToast from "../Toaster";
 
 function CartCard({ history, prod }) {
   const [count, setCount] = React.useState(prod.count);
@@ -19,6 +20,7 @@ function CartCard({ history, prod }) {
         }}
         onClick={() => {
             removeItem(prod._id);
+            makeToast("success",`${prod.name} removed from Cart`);
             history.push("/cart");
         }}
       >

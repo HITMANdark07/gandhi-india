@@ -25,6 +25,7 @@ import { withRouter } from "react-router";
 import { createCategory, getAllCategories, updateCategory } from "../../api/category";
 import { API } from "../../config";
 import { isAuthenticated } from "../../auth";
+import makeToast from "../../Toaster";
 
 function ManageCategories({history}) {
   const StyledTableCell = styled(TableCell)(({ theme }) => ({
@@ -49,7 +50,9 @@ function ManageCategories({history}) {
     getAllCategories().then(data => {
       // console.log(data);
       setCategorys(data);
-    }) 
+    }).catch((err) => {
+      makeToast("error",err);
+    })
   },[]);
   React.useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -57,12 +60,11 @@ function ManageCategories({history}) {
   }, [])
   const [categorys, setCategorys] = React.useState([]);
   const [data, setData] = React.useState({
-    id:uuid().split("-")[4],
+    id:uuid(),
     categories:"",
     status:10
   })
   const [cat, setCat] = React.useState("Primary");
-  const [error, setError] = React.useState(false);
   const [loading, setLoading] = React.useState(false);
   const [description, setDescription] = React.useState("");
   const [showImage, setShowImage] = React.useState("https://woocommerce.com/wp-content/uploads/2013/05/productcategory2.png");
@@ -76,7 +78,7 @@ function ManageCategories({history}) {
         setShowImage(URL.createObjectURL(selectedFile));
       } else {
         setImage(null);
-        setError(false);
+        makeToast("warning","select correct image format file");
       }
     } else {
       console.log("please select your file");
@@ -104,51 +106,45 @@ function ManageCategories({history}) {
           token: `Bearer ${isAuthenticated().accessToken}`
       },
   }).then(() => {
-    alert("Category Deleted");
+    makeToast("success","Category deleted successfully");
     allCats();
   }).catch(() => {
-    alert("Something went wrong");
+    makeToast("error","Category deletion failed");
   })
   }
   const clickSubmit = async(event) => {
     event.preventDefault();
     setLoading(true);
-    setError(false);
     createCategory(data).then(response => {
       if(response._id){
         setData({
-          id:uuid().split('')[4],
+          id:uuid(),
           categories:"",
           status:10
         });
         allCats();
+        makeToast("success",`${response.categories} created Successfully`);
         setLoading(false);
       }else if(response.index===0){
         setLoading(false);
-        setError(true);
+        makeToast("error","Category Already exist");
       }else{
-        setError(true);
+        makeToast("error","something Went Wrong");
         setLoading(false);
       }
     }).catch(err =>{
       console.log(err);
-      setError(true);
+      makeToast("error","Failed to create Category");
     })
 
   }
-  const showError = () => (
-    <div style={{ display: error ? "" : "none", alignItems: "center" }}>
-      <Alert severity="error">Something Went Wrong</Alert>
-    </div>
-  );
   const toggleStatus = (id, data) => {
     updateCategory(id, data).then(response => {
       if(response._id){
         allCats();
-        alert("Status Updated");
+        makeToast("success","Category Updated successfully");
       }else{
-        setError(true);
-        alert("Something Went Wrong");
+        makeToast("error","Category Update failed");
       }
     })
   }
@@ -241,7 +237,6 @@ function ManageCategories({history}) {
                   Upload
                 </Button>
               </label>
-              {showError()}
               <Button
                 variant="contained"
                 onClick={clickSubmit}

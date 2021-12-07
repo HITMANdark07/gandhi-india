@@ -24,6 +24,7 @@ import { API } from "../../config";
 import { getAllCategories, updateCategory } from "../../api/category";
 import { isAuthenticated } from "../../auth";
 import { withRouter } from "react-router";
+import makeToast from "../../Toaster";
 
 function UpdateCategory({match:{params:{categoryId}}, history}) {
   const StyledTableCell = styled(TableCell)(({ theme }) => ({
@@ -51,7 +52,6 @@ function UpdateCategory({match:{params:{categoryId}}, history}) {
   const [categories, setCategories] = React.useState([]);
   const [cat, setCat] = React.useState("Primary");
   const [category, setCategory] = React.useState("");
-  const [error, setError] = React.useState(false);
   const [loading, setLoading] = React.useState(false);
   const [description, setDescription] = React.useState("");
   const [image, setImage] = React.useState(null);
@@ -63,7 +63,7 @@ function UpdateCategory({match:{params:{categoryId}}, history}) {
         setImage(selectedFile);
       } else {
         setImage(null);
-        setError(false);
+        makeToast("warning","select correct image format file");
       }
     } else {
       console.log("please select your file");
@@ -76,7 +76,6 @@ function UpdateCategory({match:{params:{categoryId}}, history}) {
     }) 
   },[]);
   const handleChange = (event, name) => {
-    setError(false);
     switch (name) {
       case "description":
         setDescription(event.target.value);
@@ -98,17 +97,12 @@ function UpdateCategory({match:{params:{categoryId}}, history}) {
           token: `Bearer ${isAuthenticated().accessToken}`
       },
   }).then(() => {
-    alert("Category Deleted");
+    makeToast("success","Category deleted Successfully");
     allCats();
   }).catch(() => {
-    alert("Something went wrong");
+    makeToast("error","Category deletion Failed");
   })
   }
-  const showError = () => (
-    <div style={{ display: error ? "" : "none", alignItems: "center" }}>
-      <Alert severity="error">Something Went Wrong</Alert>
-    </div>
-  );
   const showLoading = () => {
     loading && (
       <div style={{ textAlign: "center" }}>
@@ -120,10 +114,9 @@ function UpdateCategory({match:{params:{categoryId}}, history}) {
     updateCategory(id, data).then(response => {
       if(response._id){
         allCats();
-        alert("Status Updated");
+        makeToast("success","Category Updated Successfully");
       }else{
-        setError(true);
-        alert("Something Went Wrong");
+        makeToast("error","Category Updation Failed");
       }
     })
   } 
@@ -138,16 +131,16 @@ function UpdateCategory({match:{params:{categoryId}}, history}) {
           setLoading(false);
           allCats();
           setCategory("");
-          alert("Category Updated");
+          makeToast("success","Category Updated Successfully");
         }else{
           setLoading(false);
-          alert("Something went Wrong");
+          makeToast("error","Category Updation Failed");
         }
       }).catch(() => {
         setLoading(false);
       })
     }else{
-      setError(true);
+      makeToast("error","Something Went Wrong");
       setLoading(false);
     }
   }
@@ -237,7 +230,6 @@ function UpdateCategory({match:{params:{categoryId}}, history}) {
                   Upload
                 </Button>
               </label>
-              {showError()}
               {showLoading()}
               <Button
                 variant="contained"

@@ -4,6 +4,7 @@ import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import { addItem } from "../api/cartHelper";
 import { withRouter } from "react-router";
 import { removeWish } from "../api/wishHelper";
+import makeToast from "../Toaster";
 
 function WishCard({ history, prod }) {
   const [added, setAdded] = React.useState(false);
@@ -20,6 +21,7 @@ function WishCard({ history, prod }) {
         }}
         onClick={() => {
             removeWish(prod._id);
+            makeToast("success",`${prod.name} removed from Wishlist`);
             history.push("/wishlist");
         }}
       >
@@ -51,6 +53,7 @@ function WishCard({ history, prod }) {
             if (prod._id) {
               addItem(prod, () => {
                 setAdded(true);
+                makeToast("success",`${prod.name} added to Cart`);
                 removeWish(prod._id);
                 history.push(history.location.pathname);
               });

@@ -12,7 +12,6 @@ import PhotoCamera from "@mui/icons-material/PhotoCamera";
 import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
 import FormControl from "@mui/material/FormControl";
-import Alert from "@mui/material/Alert";
 import CircularProgress from "@mui/material/CircularProgress";
 import InputLabel from "@mui/material/InputLabel";
 import { Button, Typography } from "@mui/material";
@@ -25,6 +24,7 @@ import uuid from "react-uuid";
 import { getProductById, updateProductById } from "../../api/product";
 import { getAllCategories } from "../../api/category";
 import { stateToHTML } from "draft-js-export-html";
+import makeToast from "../../Toaster";
 
 function UpdateProduct({
   match: {
@@ -38,7 +38,7 @@ function UpdateProduct({
       if (data) {
         setCategories(data);
       } else {
-        setError(true);
+        makeToast("error","Fail to load Categories");
       }
     });
   }, []);
@@ -57,7 +57,6 @@ function UpdateProduct({
   const [quantity, setQuantity] = React.useState(0);
   const [shortDes, setShortDesc] = React.useState("");
   const [fullDes, setFullDesc] = React.useState("");
-  const [error, setError] = React.useState(false);
   const [loading, setLoading] = React.useState(false);
   const [image, setImage] = React.useState(null);
   const [showimage, setShowImage] = React.useState(
@@ -72,10 +71,10 @@ function UpdateProduct({
         setImage(selectedFile);
       } else {
         setImage(null);
-        setError(false);
+        makeToast("error","select correct image format");
       }
     } else {
-      console.log("please select your file");
+      makeToast("warning","please select your file");
     }
   };
   const getProduct = React.useCallback(() => {
@@ -99,7 +98,7 @@ function UpdateProduct({
         setRegPrice(data.mrp);
         setSalePrice(data.price);
       } else {
-        setError(true);
+        makeToast("error","Fail to load product data");
       }
     });
   });
@@ -119,15 +118,14 @@ function UpdateProduct({
     updateProductById(productId, data).then((data) => {
       if (data._id) {
         setLoading(false);
-        alert("Product Updated");
+        makeToast("success",`${data.name} updated successfully`);
       } else {
         setLoading(false);
-        alert("something Went Wrong");
+        makeToast("error","Fail to update");
       }
     });
   };
   const handleChange = (event, name) => {
-    setError(false);
     switch (name) {
       case "title":
         setTitle(event.target.value);
@@ -150,12 +148,6 @@ function UpdateProduct({
       default:
     }
   };
-  const showError = () => (
-    <div style={{ display: error ? "" : "none", alignItems: "center" }}>
-      <Alert severity="error">Something Went Wrong</Alert>
-    </div>
-  );
-
   const wrapperStyle = {
     border: "1px solid #969696",
   };
@@ -207,7 +199,6 @@ function UpdateProduct({
                 margin: "20px",
               }}
             >
-              {showError()}
               <FormControl sx={{ marginTop: "20px" }}>
                 <InputLabel id="demo-simple-select-label">Seller</InputLabel>
                 <Select
@@ -297,7 +288,6 @@ function UpdateProduct({
                 sx={{ marginTop: "20px" }}
               />
 
-              {showError()}
               <Button
                 variant="contained"
                 sx={{ margin: "20px auto", width: "90%" }}
