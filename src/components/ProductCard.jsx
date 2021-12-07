@@ -15,7 +15,6 @@ function ProductCard({ history, id, mrp, price, title, prod }) {
       <img
         className={styles.productImage}
         style={{ cursor: "pointer" }}
-        onClick={() => history.push(`/product/${id ? id : "lalsldasl"}`)}
         src={`https://thumbs.dreamstime.com/b/product-text-made-wooden-cube-white-background-181800372.jpg`}
         alt="productssss"
       />
@@ -43,6 +42,17 @@ function ProductCard({ history, id, mrp, price, title, prod }) {
         <VisibilityIcon sx={{ fontSize: 40 }} />
       </div>
       <div className={styles.productContent}>
+      <div>
+          <Rating name="read-only" color="#ff631c" value={4.5} readOnly />
+        </div>
+        <p style={{color:"#ff631c", fontWeight:"750"}}>{title ? title : "Silk Saree"}</p>
+        <div className={styles.rates}>
+          <div className={styles.mrp}>₹ {mrp ? mrp.toFixed(2) : "12000"}/-</div>
+          <div className={styles.sp}>
+            ₹ {price ? price.toFixed(2) : "10000"}/-
+          </div>
+        </div>
+        <div className={styles.rates}>
         <button
           className={styles.addCartbu}
           style={{ backgroundColor: added ? "grey" : "" }}
@@ -58,16 +68,16 @@ function ProductCard({ history, id, mrp, price, title, prod }) {
         >
           {added ? "Added" : "Add"} to Cart
         </button>
-        <h4>{title ? title : "Silk Saree"}</h4>
-        <div>
-          <Rating name="read-only" value={8} readOnly />
+        <button
+          className={styles.addCartbu}
+          onClick={() => {
+            history.push(`/product/${id ? id : "lalsldasl"}`);
+          }}
+        >
+          Buy Now
+        </button>
         </div>
-        <div className={styles.rates}>
-          <div className={styles.mrp}>₹ {mrp ? mrp.toFixed(2) : "12000"}/-</div>
-          <div className={styles.sp}>
-            ₹ {price ? price.toFixed(2) : "10000"}/-
-          </div>
-        </div>
+        
       </div>
     </div>
   );

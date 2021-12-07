@@ -70,7 +70,7 @@ function Signin() {
     <>
       <Headers />
       {redirectUser()}
-      <div className={classes.head} style={{ marginTop: "90px" }}>
+      <div className={classes.head} style={{ marginTop: "90px"}}>
         <p className={classes.signup}>
           I dont have an account!{" "}
           <span className={classes.signupLink}>

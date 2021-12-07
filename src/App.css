@@ -25,17 +25,35 @@ nav ul div.items {
   padding: 0 25px;
   display: inline-flex;
 }
+.logout{
+  padding-top: 20px;
+}
+
+.catLinks{
+  background-color: #ff631c;
+  color: white !important ; 
+}
 
 nav ul div.items a {
   text-decoration: none;
   color: black;
+  font-weight: 600;
+  border-radius: 10px;
   font-size: 13px;
-  padding: 0 12px;
+  margin: 5px;
+  padding: 10px;
+}
+nav ul div.items a:hover {
+  text-decoration: none;
+  color: white;
+  background-color: #ff631c;
+  font-weight: 600;
+  border-radius: 10px;
+  font-size: 13px;
+  margin: 5px;
+  padding: 10px;
 }
 
-nav ul div.items a:hover {
-  color: gray;
-}
 nav ul li a img {
   height: 10%;
 }
@@ -70,21 +88,21 @@ nav ul .search-icon input {
   flex-direction: column;
   /* height:10rem; */
   width: 200px;
-  padding:0.4rem;
+  padding:0.1rem;
+  color: #f2f2f2;
   margin:5px;
   border: 0.1rem;
-  border-radius: .4rem;
-  border-style: solid;
-  border-color:#000000;
+  background-color: #ff631c;
+  border-radius: .6rem;
   box-shadow: 5px 3px 2px 1px rgb(88, 86, 86);
 }
 
 .image__img {
   display: block;
-  width:95%;
-  height: 98%;
-  margin-left: 2.5%;
-  border-radius: 1rem;
+  width:99%;
+  flex:2;
+  margin-left: .5%;
+  border-radius: 0.7rem;
 }
 
 .image__overlay {
@@ -97,6 +115,7 @@ nav ul .search-icon input {
   color: #ffffff;
   font-family: 'Quicksand', sans-serif;
   display: flex;
+  border-radius: 10px;
   flex-direction: column;
   align-items: center;
   justify-content: center;
@@ -126,7 +145,7 @@ nav ul .search-icon input {
 }
 
 .image__title {
-  font-size: 26px;
+  font-size: 22px;
   text-align: center;
   font-weight: bold;
   font-family: Helvetica;
@@ -134,7 +153,7 @@ nav ul .search-icon input {
 
 .title
   {
-    font-size: 26px;
+    font-size: 22px;
   text-align: center;
   font-weight: bold;
   font-family: Helvetica;
@@ -155,8 +174,8 @@ nav ul .search-icon input {
   width: 80%;
   margin: 0 auto;
   margin-top: 50px;
-  background-color: #26912526;
-  color: black;
+  background-color: #ff631c;
+  color: white;
   border-radius: 20px;
   text-align: center;
   padding: 8px;
@@ -206,13 +225,16 @@ nav ul .search-icon input {
   max-height: 30px;
   padding: 10px;
 }
-.tr:nth-child(even){background-color: #f2f2f2;}
+.tr:nth-child(even){
+  background-color: #f2f2f2;
+  border-radius: 15px;
+}
 .tr:hover {background-color: #ddd;}
 
 .th{
   padding: 10px;
   text-align: left;
-  background-color: #04AA6D;
+  background-color: #ff631c;
   color: white;
 }
 .timer-wrapper {
