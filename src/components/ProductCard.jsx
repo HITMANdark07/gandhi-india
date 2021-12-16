@@ -7,6 +7,7 @@ import { withRouter } from "react-router";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import { addWish } from "../api/wishHelper";
 import makeToast from "../Toaster";
+import { API } from "../config";
 
 function ProductCard({ history, id, mrp, price, title, prod }) {
   const [added, setAdded] = React.useState(false);
@@ -16,7 +17,7 @@ function ProductCard({ history, id, mrp, price, title, prod }) {
       <img
         className={styles.productImage}
         style={{ cursor: "pointer" }}
-        src={`https://thumbs.dreamstime.com/b/product-text-made-wooden-cube-white-background-181800372.jpg`}
+        src={`${API}/image/photo/${prod.photo[0]}`}
         alt="productssss"
       />
       <div

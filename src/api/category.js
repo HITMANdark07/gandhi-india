@@ -26,12 +26,11 @@ export const updateCategory = (id,data) => {
     ).catch(err =>err))
 }
 export const getAllCategories = () => {
-    return (fetch(`${API}/category`,{
+    return (fetch(`${API}/category-list`,{
         method:"GET",
         headers:{
             Accept:'application/json',
             "Content-Type": "application/json",
-            token: `Bearer ${isAuthenticated().accessToken}`
         },
     }).then(response =>  response.json()
     ).catch(err =>err))

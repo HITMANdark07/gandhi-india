@@ -6,7 +6,7 @@ import Header from "../components/Header";
 import ProductCard from "../components/ProductCard";
 import Footer from "../components/Footer";
 import { getAllCategories } from "../api/category";
-import { getFeatureProducts } from "../api/product";
+import { getFeatureProducts, getProductByCategoryId } from "../api/product";
 
 function Home() {
   const [categories, setCategories] = React.useState([]);
@@ -22,9 +22,9 @@ function Home() {
   },[]);
   const getProdsByCategories = (data) =>{
     data.forEach((d)=> {
-      getFeatureProducts(`?category=${d.id}`).then(res => {
+      getProductByCategoryId(d._id).then(res => {
         const s ={
-          category:d.categories,
+          category:d.name,
           prods:res
         };
         if(s.prods.length>0){
@@ -42,9 +42,9 @@ function Home() {
     window.scrollTo({ top: 0, behavior: 'smooth' })
     allCats();
     getFPro();
-  }, []);
+  }, [allCats]);
   const getFPro =() => {
-    getFeatureProducts("?limit=true").then(response => {
+    getFeatureProducts().then(response => {
       if(response){
         setFeatureProducts(response);
       }
@@ -82,8 +82,8 @@ function Home() {
         </div>
 
         <div className="category-section">
-          {categories.filter(cat => cat.status===10).map((cat) => 
-            <CategoryCard key={cat._id} id={cat.id} title={cat.categories} />
+          {categories.map((cat) => 
+            <CategoryCard key={cat._id} id={cat._id} slug={cat.slug} title={cat.name} />
           )}
         </div>
         <div className="categoryTop">

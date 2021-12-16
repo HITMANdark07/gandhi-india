@@ -42,7 +42,7 @@ export const removeWish = (productId) => {
         if(localStorage.getItem('wish')) {
             wish = JSON.parse(localStorage.getItem('wish'))
         }
-        wish.map((product, i) => {
+        wish.forEach((product, i) => {
             if(product._id === productId) {
                 wish.splice(i, 1)
             }

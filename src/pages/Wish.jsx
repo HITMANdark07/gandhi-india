@@ -1,7 +1,7 @@
 import React from "react";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
-import { getCart, emptyCart } from "../api/cartHelper";
+// import { getCart, emptyCart } from "../api/cartHelper";
 import { withRouter } from "react-router";
 import { getWish } from "../api/wishHelper";
 import WishCard from "../components/WishCard";

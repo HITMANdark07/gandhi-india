@@ -21,14 +21,14 @@ function Header(props) {
 
   const allCats = React.useCallback(() => {
     getAllCategories().then((data) => {
-      // console.log(data);
-      setCategorys(data.filter((cat) => cat.status === 10));
+      console.log(data);
+      setCategorys(data);
     });
   }, []);
   const [searchTerm, setSearchTerm] = React.useState("");
   React.useEffect(() => {
     allCats();
-  }, []);
+  }, [allCats]);
   const [categorys, setCategorys] = React.useState([]);
   return (
     <>
@@ -58,8 +58,8 @@ function Header(props) {
                   >
                     <Link
                     className={props.history.location.pathname ===
-                      `/category/${cat.id}` ? "catLinks": ""}
-                    to={`/category/${cat.id}`}>{cat.categories}</Link>
+                      `/category/${cat.slug}` ? "catLinks": ""}
+                    to={`/category/${cat.slug}`}>{cat.name}</Link>
                   </span>
                 </li>
               ))}
@@ -118,7 +118,7 @@ function Header(props) {
                       }}
                       onKeyPress={(e) => {
                         var keyCode = e.code || e.key;
-                        if (keyCode == "Enter" && e.target.value.trim() != "") {
+                        if (keyCode === "Enter" && e.target.value.trim() !== "") {
                           props.history.push(`/search/${e.target.value}`);
                         }
                       }}

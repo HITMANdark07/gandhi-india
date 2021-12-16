@@ -1,29 +1,40 @@
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
 import styles from "../assets/css/productPage.module.css";
 import Rating from '@mui/material/Rating';
 import ReactImageZoom from 'react-image-zoom';
 import { addItem } from "../api/cartHelper";
 import { withRouter } from "react-router-dom";
 import makeToast from "../Toaster";
+import { API } from "../config";
 function ProductMainCard({history,product,category}) {
   const [added , setAdded] = React.useState(false);
     const [count,setCount] = useState(1);
-    const images = ["https://media.istockphoto.com/photos/plant-and-fan-for-living-room-decor-picture-id1279718203?b=1&k=20&m=1279718203&s=170667a&w=0&h=KclHT_uCZLGphHsk7B9QtRK1dsVf8tLj-xTXIVoQWno=",
-                    "https://m.media-amazon.com/images/I/51QqXY279vL._SL1200_.jpg",
-                  "https://media.architecturaldigest.com/photos/602ed4e4b515eae5c54f9803/16:9/w_2560%2Cc_limit/Ceiling-fans.1.gif",
-                "https://image.made-in-china.com/2f0j00VRbGSOtsnqck/High-Quality-6-Inch-Table-Stand-Electrical-Mini-Fan.jpg"];
-    const [ig, setig] = useState(images[0]);
+    const [images,setImages] = useState([]);
+    const [ig, setig] = useState('https://promocity.co.ke/wp-content/uploads/2021/03/DummyProductmob.jpg');
     const increment=() =>{
         setCount(c => c+1);
     }
+    const populatePhotos = useCallback((product) => {
+      if(product.photo){
+        product.photo.forEach((p,idx) => {
+          if(idx===0){
+            setig(`${API}/image/photo/${p}`);
+          }
+          setImages((prev) => [...prev, `${API}/image/photo/${p}`]);
+        })
+      }
+    },[]);
     React.useEffect(() => {
       document.getElementById("full").innerHTML=product.description;
-    },[product]);
+      setImages([]);
+      populatePhotos(product);
+    },[product,populatePhotos]);
     const decriment = () => {
         if(count>1){
             setCount(c=> c-1);
         }
     }
+    // images = product.photo;
     const imageSetter = (index) => {
       setig(images[index]);
     }
@@ -34,10 +45,9 @@ function ProductMainCard({history,product,category}) {
       >
       <ReactImageZoom width={400}  zoomPosition={window.innerWidth<900 ? "bottom" :"right"} zoomWidth={200} img={ig} />
         <div className={styles.pimages}>
-          <img className={styles.imagesp} onClick={() => imageSetter(0)} src={images[0]} alt="Asdasdsa" />
-          <img className={styles.imagesp} onClick={() => imageSetter(1)} src={images[1]} alt="Asdasdsa" />
-          <img className={styles.imagesp} onClick={() => imageSetter(2)} src={images[2]} alt="Asdasdsa" />
-          <img className={styles.imagesp} onClick={() => imageSetter(3)} src={images[3]} alt="Asdasdsa" />
+          {images.map((ig,idx) => (
+            <img className={styles.imagesp} key={ig} onClick={() => imageSetter(idx)} src={ig} alt="Asdasdsa" />
+          ))}
         </div>
         {/* <img
           src={`https://media.istockphoto.com/photos/plant-and-fan-for-living-room-decor-picture-id1279718203?b=1&k=20&m=1279718203&s=170667a&w=0&h=KclHT_uCZLGphHsk7B9QtRK1dsVf8tLj-xTXIVoQWno=`}

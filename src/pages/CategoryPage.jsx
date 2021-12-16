@@ -1,11 +1,11 @@
-import React from "react";
+import React, { useCallback } from "react";
 import Header from "../components/Header";
 import styles from "../assets/css/CategoryPage.module.css";
 import { Link } from "react-router-dom";
 import Footer from "../components/Footer";
 import ProductCard from "../components/ProductCard";
 import { getAllCategories } from "../api/category";
-import { getProductsByCategory } from "../api/product";
+import { getProductByCategorySlug } from "../api/product";
 function CategoryPage({match:{params:{categoryId}}}) {
   const [categories, setCategories] = React.useState([]);
   const [products,setProducts] = React.useState([]);
@@ -19,20 +19,20 @@ function CategoryPage({match:{params:{categoryId}}}) {
       }
     });
   }, []);
-  const getProducts = () => {
-    getProductsByCategory(categoryId).then(response => {
+  const getProducts = useCallback(() => {
+    getProductByCategorySlug(categoryId).then(response => {
       if(response.length>=0){
         setProducts(response);
       }else{
         alert("Someting went wrong");
       }
     })
-  }
+  },[categoryId]);
   React.useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
     allCats();
     getProducts();
-  }, [categoryId])
+  }, [categoryId,allCats,getProducts])
   return (
     <>
       <Header />
@@ -55,7 +55,7 @@ function CategoryPage({match:{params:{categoryId}}}) {
           <div className={styles.sidenavTitle}>Categories</div>
           {categories.map((cat) => (
             <div className={styles.sidenavContent} key={cat._id}>
-            <Link to={`/category/${cat.id}`}>{cat.categories}</Link>
+            <Link to={`/category/${cat.slug}`}>{cat.name}</Link>
           </div>
           ))}
         </div>

@@ -1,13 +1,13 @@
 import React from "react";
 import { withRouter } from "react-router";
-import Image from '../assets/images/image1.jpg';
+import { API } from "../config";
 
-const CategoryCard = ({id,title, history}) => {
+const CategoryCard = ({id,title,slug, history}) => {
   return (
     <div className="image" style={{cursor:"pointer"}} onClick={() => {
-      history.push(`/category/${id}`);
+      history.push(`/category/${slug}`);
     }}>
-    <img className="image__img" src={Image} alt="Bricks"/>
+    <img className="image__img" src={`${API}/category/photo/${id}`} alt="Bricks"/>
      <p className="title">{title}</p>
     <div className="image__overlay image__overlay--primary">
         <div className="image__title">{title}</div>  

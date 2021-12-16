@@ -1,5 +1,5 @@
 import { CircularProgress } from "@mui/material";
-import React from "react";
+import React, { useCallback } from "react";
 import { withRouter } from "react-router";
 import { getAllProducts } from "../api/product";
 import Header from "../components/Header";
@@ -7,20 +7,20 @@ import ProductCard from "../components/ProductCard";
 
 function SearchPage({history,match:{params:{searchTerm}}}) {
     const [products, setProducts] = React.useState([]);
-    const getProducts = () => {
+    const getProducts = useCallback(() => {
         getAllProducts().then(data => {
             setProducts(data);
             setLoading(false);
         }).catch(() => {
             history.goBack();
         })
-    }
+    },[history]);
     const [loading, setLoading] = React.useState(true);
     const filteredProducts = products.filter((pro) => pro.name.toLowerCase().includes(searchTerm.toLowerCase()));
     React.useEffect(() => {
         window.scrollTo({ top: 0, behavior: 'smooth' });
         getProducts();
-    },[]);
+    },[getProducts]);
     const showLoading = () => 
       loading && (
       <div style={{textAlign:"center", marginTop:"30px"}}>
