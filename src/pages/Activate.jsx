@@ -66,7 +66,7 @@ function Activate({match:{params:{token}}}) {
             justifyContent:'center', 
             alignItems:"center"
         }}>
-            <h2>HI, {name.toUpperCase()}</h2>
+            <h2>HI, {name && name.toUpperCase()}</h2>
             <h4>Click Below to verify Your Account</h4>
             {showError()}
             {showLoading()}
