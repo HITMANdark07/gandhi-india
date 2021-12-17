@@ -11,13 +11,13 @@ import CircularProgress from '@mui/material/CircularProgress';
 
 function Signin() {
   const [values, setValues] = useState({
-    username: "",
+    email: "",
     password: "",
     error: "",
     loading: false,
     redirectToReferrer: false,
   });
-  const { loading, username, password, redirectToReferrer, error } = values;
+  const { loading, email, password, redirectToReferrer, error } = values;
   React.useEffect(() => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   }, []);
@@ -27,11 +27,11 @@ function Signin() {
   const clickSubmit = (event) => {
     event.preventDefault();
     setValues({ ...values, error: false, loading: true });
-    signin({ username, password })
+    signin({ email, password })
       .then((data) => {
         if (data.err) {
           setValues({ ...values, error: data.err, loading: false });
-        } else if(data._id) {
+        } else if(data.token) {
           authenticate(data, () => {
             setValues({
               ...values,
@@ -60,12 +60,7 @@ function Signin() {
     <Alert severity="error">{error}</Alert>
     </div>
   );
-  const showLoading = () => 
-      loading && (
-      <div style={{textAlign:"center"}}>
-          <CircularProgress />
-      </div>
-      );
+  
   return (
     <>
       <Headers />
@@ -93,13 +88,13 @@ function Signin() {
           <div className={classes.inputgroup}>
             <input
               className={classes.input}
-              value={username}
-              onChange={handleChange("username")}
+              value={email}
+              onChange={handleChange("email")}
               required
             />
             <span className={classes.highlight}></span>
             <span className={classes.bar}></span>
-            <label className={classes.label}>Username</label>
+            <label className={classes.label}>Email</label>
           </div>
 
           <div className={classes.inputgroup}>
@@ -115,10 +110,9 @@ function Signin() {
             <label className={classes.label}>Password</label>
           </div>
           {showError()}
-          {showLoading()}
           {/* <Link to="/"><p style={{textDecoration:'none',textAlign:"right"}}>Reset your password</p></Link> */}
           <div className={classes.inputgroup}>
-            <button type="submit" onClick={clickSubmit} className={classes.button}>Sign in</button>
+            <button type="submit" onClick={clickSubmit} style={{cursor:"pointer"}} className={classes.button}> {loading ? <CircularProgress size={24} style={{color:"#fff"}} /> : "" } Sign in</button>
           </div>
         </form>
       </div>

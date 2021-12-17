@@ -5,7 +5,9 @@ import { Link, Redirect } from 'react-router-dom';
 import classes from "../assets/css/form.module.css";
 import Alert from '@mui/material/Alert';
 import CircularProgress from '@mui/material/CircularProgress';
-import { isAuthenticated,authenticate, signup } from "../auth/index";
+import { isAuthenticated } from "../auth/index";
+import { API } from '../config';
+import makeToast from "../Toaster";
 // import google from "../assets/images/google.png";
 // import facebook from "../assets/images/facebook.png";
 
@@ -15,47 +17,37 @@ function Signup() {
       }, [])
       const [values, setValues] = useState({
         email:"",
-        username: "",
+        name: "",
         password: "",
         error: "",
-        loading: false,
-        redirectToReferrer: false,
+        loading: false
       });
-      const { loading,email, username, password, redirectToReferrer, error } = values;
+      const { loading,email, name, password, error } = values;
       const handleChange = (name) => (event) => {
         setValues({ ...values, error: false, [name]: event.target.value });
       };
 
-      const redirectUser = () => {
-        if (redirectToReferrer) {
-          return <Redirect to="/" />;
-        } else if (isAuthenticated()) {
-          return <Redirect to="/" />;
-        }
-      };
       const clickSubmit = (event) => {
         event.preventDefault();
-          setValues({...values,loading:true, error:false});
-          signup({email, username, password})
-        .then(data => {
-            if(data.error){
-                setValues({...values,loading:false, error: data.error, success: false});
-            }else if(data.index===0){
-                setValues({...values,loading:false, error: "User Already Exist", success: false});
-            }else {
-                   authenticate(data, () => {
-                    setValues({...values,
-                      email:'',
-                      username:'',
-                      password:'',
-                      confirm:"",
-                      error:'',
-                      loading:false,
-                      redirectToReferrer:true
-              });
-                   });
-                }
-            }).catch(() => setValues({...values, error:'Network Error'}))
+        setValues({...values,loading:true, error:false});
+        fetch(`${API}/user/activate`,{
+          method:"POST",
+          headers:{
+              Accept:"application/json",
+              "Content-Type":"application/json"
+          },
+          body:JSON.stringify({name,email,password})
+      }).then(response => {
+          response.json().then(res => {
+              if(res.message){
+                  makeToast("success", res.message);
+                  setValues({...values,name:"", email:"",password:"",loading:false, error:false});
+              }else{
+                  makeToast("error", res.error);
+                  setValues({...values,loading:false, error:res.error});
+              }
+          })
+      })
       }
     
       const showError = () => (
@@ -63,17 +55,10 @@ function Signup() {
         <Alert severity="error">{error}</Alert>
         </div>
       );
-      const showLoading = () => {
-          loading && (
-          <div style={{textAlign:"center"}}>
-              <CircularProgress />
-          </div>
-          );
-        }
     return (
         <>
            <Headers />
-           {redirectUser()}
+           {isAuthenticated() && <Redirect to="/" />}
            <div className={classes.head} style={{marginTop:'90px'}}>
                <div className={classes.signup}>I already have an Account! <span className={classes.signupLink}>
                <Link to="/signin">Signin Now</Link>
@@ -97,10 +82,10 @@ function Signup() {
                     </div>
 
                     <div className={classes.inputgroup}>
-                    <input className={classes.input} value={username} type="text" onChange={handleChange('username')} required  />
+                    <input className={classes.input} value={name} type="text" onChange={handleChange('name')} required  />
                     <span className={classes.highlight}></span>
                     <span className={classes.bar}></span>
-                    <label className={classes.label}>User Name</label>
+                    <label className={classes.label}>Name</label>
                     </div>
 
                     <div className={classes.inputgroup}>
@@ -110,10 +95,9 @@ function Signup() {
                     <label className={classes.label}>Password</label>
                     </div>
                     {showError()}
-                    {showLoading()}
                     {/* <p style={{textAlign:"right"}}><Link href="/">Reset your password</Link></p> */}
                     <div className={classes.inputgroup}>
-                        <button onClick={clickSubmit} className={classes.button}>Sign Up</button>
+                        <button onClick={clickSubmit} style={{cursor:"pointer"}} className={classes.button}>{loading ? <CircularProgress size={24} style={{color:"#fff"}} /> : ""} Sign Up</button>
                     </div>
                </form>
            </div>

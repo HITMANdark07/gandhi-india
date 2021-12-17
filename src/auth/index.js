@@ -2,7 +2,7 @@ import { API } from "../config";
 
 
 export const signup = (user) => {
-    return fetch(`${API}/auth/register`,{
+    return fetch(`${API}/user/signup`,{
         method:"POST",
         headers:{
             Accept:'application/json',
@@ -19,7 +19,7 @@ export const signup = (user) => {
     };
 
 export const signin = (user) => {
-    return fetch(`${API}/auth/login`,{
+    return fetch(`${API}/user/signin`,{
         method:"POST",
         headers:{
             Accept:'application/json',
