@@ -1,16 +1,15 @@
 import React from "react";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
-import { getCart, emptyCart } from "../api/cartHelper";
+import { getCart } from "../api/cartHelper";
 import CartCard from "../components/CartCard";
 import ShoppingCartCheckoutIcon from '@mui/icons-material/ShoppingCartCheckout';
-import { Button, TextField } from "@mui/material";
+import { Button } from "@mui/material";
 import { withRouter } from "react-router";
 function Cart({history}) {
   React.useEffect(() => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   }, []);
-  const [code, setCode] = React.useState("");
   const total = getCart().reduce((acc, data) => data.count*data.price+acc,0);
   return (
     <>
@@ -27,16 +26,6 @@ function Cart({history}) {
           </div>
           <div className="cartSummary">
               <h3>Cart Summary</h3>
-              <TextField
-                id="standard-basic"
-                type="text"
-                label="Agent Code"
-                value={code}
-                onChange={(e) => setCode(e.target.value)}
-                variant="outlined"
-                sx={{ marginTop: "20px", marginBottom:"20px" }}
-                fullWidth
-              />
             <table className="table">
               <tr className="tr">
                 <th className="th">Product</th>
@@ -60,12 +49,10 @@ function Cart({history}) {
                       startIcon={<ShoppingCartCheckoutIcon/>}
                       size="large"
                       onClick={()=> {
-                        emptyCart(() => {
-                          history.push("/thank-you");
-                        })
+                        history.push("/checkout-page")
                       }}
                       fullWidth
-                      >PLACE ORDER</Button> 
+                      >CHECKOUT NOW</Button> 
                   </td>
               </tr>
             </table>

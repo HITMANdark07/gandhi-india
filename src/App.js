@@ -12,6 +12,7 @@ import SearchPage from "./pages/SearchPage";
 import ThankYou from "./pages/ThankYou";
 import Wish from "./pages/Wish";
 import Activate from "./pages/Activate";
+import CheckOutPage from "./pages/CheckOutPage";
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
           <Route path="/signin" exact component={Signin} />
           <Route path="/signup" exact component={Signup} />
           <PrivateRoute path="/cart" exact component={Cart} />
+          <PrivateRoute path="/checkout-page" exact component={CheckOutPage} />
           <PrivateRoute path="/wishlist" exact component={Wish} />
           <PrivateRoute path="/thank-you" exact component={ThankYou} />
           <Route path="/category/:categoryId" exact component={CategoryPage} />
