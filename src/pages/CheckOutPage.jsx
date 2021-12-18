@@ -15,6 +15,7 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
 import { isAuthenticated } from '../auth';
+import makeToast from '../Toaster';
 
 function CheckOutPage({history}) {
     React.useEffect(() => {
@@ -42,22 +43,21 @@ function CheckOutPage({history}) {
             if(event.target.value.length===6){
                 fetch(`https://api.postalpincode.in/pincode/${event.target.value}`, {
                     method:'GET',
-                    headers:{
-                        Accept:"application/json",
-                        "Content-Type":"application/json"
-                    }
                 }).then((response) => {
                     response.json().then((res) => {
-                        if(data.Status==='Error'){
-                            setData({...data, pincode:""})
-                        }else{
+                        if(res[0].Status==='Success'){
                             const options =[];
-                            res.PostOffice.forEach((po) => {
+                            res[0].PostOffice.forEach((po) => {
                                 options.push(po.Name);
                             })
                             setCities(options);
-                            setData({...data,state: res.PostOffice[0].State, city:res.PostOffice[0].Name });
+                            setData({...data,state: res[0].PostOffice[0].State, city:res[0].PostOffice[0].Name, pincode:event.target.value });
+                        }else{
+                            setData({...data, pincode:""})
                         }
+                    }).catch(() => {
+                        setData({...data,pincode:""});
+                        makeToast("warning","Enter Correct pincode");
                     })
                 }).catch(err => {
                     console.log(err);
