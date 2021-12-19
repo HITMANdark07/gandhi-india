@@ -21,7 +21,6 @@ function Header(props) {
 
   const allCats = React.useCallback(() => {
     getAllCategories().then((data) => {
-      console.log(data);
       setCategorys(data);
     });
   }, []);
