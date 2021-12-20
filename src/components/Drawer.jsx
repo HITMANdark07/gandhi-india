@@ -12,6 +12,7 @@ import Avatar from "@mui/material/Avatar";
 import LogoutIcon from "@mui/icons-material/Logout";
 import ListItemAvatar from "@mui/material/ListItemAvatar";
 import FavoriteIcon from "@mui/icons-material/Favorite";
+import CategoryIcon from '@mui/icons-material/Category';
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 import ArticleIcon from "@mui/icons-material/Article";
 import { withRouter } from "react-router";
@@ -58,6 +59,17 @@ function Drawer({ childFunc, history, cats }) {
           </ListItemAvatar>
           <ListItemText primary="My Cart" secondary="products Cart" />
         </ListItem>
+        {
+          isAuthenticated() && 
+          (<ListItem button onClick={() => history.push("/my-orders")}>
+          <ListItemAvatar>
+            <Avatar>
+              <CategoryIcon />
+            </Avatar>
+          </ListItemAvatar>
+          <ListItemText primary="My Orders" secondary="My Orders" />
+        </ListItem>)
+        }
         <ListItem>
           <div style={{ fontWeight: "bold", marginLeft: "30px" }}>
             CATEGORIES

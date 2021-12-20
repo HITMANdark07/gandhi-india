@@ -1,6 +1,6 @@
 import React, { useCallback } from "react";
 import Header from "../components/Header";
-import { getCart } from "../api/cartHelper";
+import { emptyCart, getCart } from "../api/cartHelper";
 import Button from "@mui/material/Button";
 import { withRouter } from "react-router";
 import { TextField } from "@mui/material";
@@ -20,6 +20,7 @@ import PaymentIcon from '@mui/icons-material/Payment';
 import SendIcon from '@mui/icons-material/Send';
 import { createAdderss, getAddressByUser } from "../api/address";
 import { getCoupan } from "../api/coupan";
+import { createOrder } from "../api/order";
 
 function CheckOutPage({ history }) {
   const getmyaddress = useCallback(() => {
@@ -55,6 +56,7 @@ function CheckOutPage({ history }) {
   const [cities, setCities] = React.useState([]);
   const [show, setShow] = React.useState(false);
   const [coupan, setCoupan] = React.useState("");
+  const [couponId, setCouponId] = React.useState("");
   const [discount, setDiscount] = React.useState(0);
   const [method, setMethod] = React.useState("COD");
   const {
@@ -84,6 +86,18 @@ function CheckOutPage({ history }) {
         console.log(err);
       });
   };
+  const orderNow = () => {
+    createOrder({address, couponId, method}).then((response) => {
+      if(response.error){
+        makeToast("error", response.error);
+      }else if(response._id){
+        makeToast("success", "Ordered Successfully");
+        emptyCart(() => {
+          history.push("/thank-you")
+        })
+      }
+    })
+  }
   const handleChange = (event) => {
     setData({ ...data, [event.target.name]: event.target.value });
 
@@ -136,6 +150,7 @@ function CheckOutPage({ history }) {
           setCoupan("");
         } else {
           makeToast("success", data.code + " APPLIED");
+          setCouponId(data._id);
           if (data.type === "percentage") {
             const ds = ((total * data.condition) / 100).toFixed(2);
             if (ds <= data.max) {
@@ -391,7 +406,7 @@ function CheckOutPage({ history }) {
           </div>
           {
             method==="COD" ?
-            (<Button variant="contained" startIcon={<SendIcon />} >PLACE ORDER</Button>):
+            (<Button variant="contained" onClick={orderNow} startIcon={<SendIcon />} >PLACE ORDER</Button>):
             (<Button variant="contained" startIcon={<PaymentIcon />} >PAY NOW</Button>)
           }
         </div>
