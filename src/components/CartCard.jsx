@@ -4,6 +4,7 @@ import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import { removeItem, updateItem } from "../api/cartHelper";
 import { withRouter } from "react-router";
 import makeToast from "../Toaster";
+import { API } from "../config";
 
 function CartCard({ history, prod }) {
   const [count, setCount] = React.useState(prod.count);
@@ -28,7 +29,7 @@ function CartCard({ history, prod }) {
       </div>
       <img
         className={styles.productImage}
-        src={`https://thumbs.dreamstime.com/b/product-text-made-wooden-cube-white-background-181800372.jpg`}
+        src={`${API}/image/photo/${prod.photo[0]}`}
         alt="productssss"
       />
       <div

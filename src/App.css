@@ -275,13 +275,32 @@ nav ul .search-icon input {
   transform: scale(1.15);
   transition: all 0.6s;
 }
+.ordercard{
+  display:flex;
+  flex-direction:row;
+  margin: 10px auto;
+  width: 80%;
+  justify-content:space-evenly;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+}
 .activate-bu:active{
   margin-top:6px;
   box-shadow: 0 0 #fa5204;
 }
+.cardelem{
+  margin: 5px;
+}
 @media only screen and (max-width: 600px) {
   nav ul div.items a {
     display: none;
+  }
+  .ordercard{
+    display:flex;
+    width: 90%;
+    flex-direction:column;
+    justify-content:space-evenly
   }
   nav ul li span {
     display: none;

@@ -27,3 +27,18 @@ export const createOrder = (d) => {
         console.log(err);
     })
 }
+
+export const getOrders = () => {
+    return fetch(`${API}/orders/${isAuthenticated().user._id}`,{
+        method:"GET",
+        headers:{
+            Accept:"application/json",
+            "Content-Type":"application/json",
+            Authorization: `Bearer ${isAuthenticated().token}`
+        }
+    }).then((response) => {
+        return response.json()
+    }).catch((err) => {
+        console.log(err);
+    })
+}
