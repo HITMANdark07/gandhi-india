@@ -43,7 +43,7 @@ function MyOrder() {
                   <img key={pro._id} className="cardelem" src={`${API}/image/photo/${pro.photo[0]}`} height={250} width={200} alt="asdas" />
                 ))}
               </div>
-              <div className="cardelem">
+              <div className="cardelem" style={{padding:4, backgroundColor:order.status==='Canceled'? "red":'green', borderRadius:20, color:'#fff'}}>
                 <b>ORDER STATUS</b>: {order.status.toUpperCase()}
               </div>
             </div>
