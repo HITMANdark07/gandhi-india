@@ -43,7 +43,7 @@ function ProductMainCard({history,product,category}) {
       <div style={{flex:1,padding:"20px",flexDirection:"column", justifyContent:"center"}}
       // className={styles.pImage}
       >
-      <ReactImageZoom width={400}  zoomPosition={window.innerWidth<900 ? "bottom" :"right"} zoomWidth={200} img={ig} />
+      <ReactImageZoom width={400} style={{zindex:40}}  zoomPosition={window.innerWidth<900 ? "bottom" :"right"} zoomWidth={200} img={ig} />
         <div className={styles.pimages}>
           {images.map((ig,idx) => (
             <img className={styles.imagesp} key={ig} onClick={() => imageSetter(idx)} src={ig} alt="Asdasdsa" />
@@ -57,7 +57,7 @@ function ProductMainCard({history,product,category}) {
       <div className={styles.pContent}>
         <div className={styles.pCategory}>Category : {category}</div>
         <div className={styles.pTitle}>{product && product.name}</div>
-        <div className={styles.pTitle}><Rating name="read-only" value={8} readOnly/></div>
+        <div className={styles.pTitle} style={{zindex:0}}><Rating name="read-only" value={8} readOnly /></div>
         <div className={styles.pRates}>
           <div className={styles.pMrp}>₹{product && product.mrp}.00/-</div>
           <div className={styles.pSp}>₹{product && product.price}.00/-</div>

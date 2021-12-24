@@ -1,10 +1,11 @@
 import React from "react";
-import styles from "../assets/css/product.module.css";
+import styles from "../assets/css/Feature.module.css";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import { addItem } from "../api/cartHelper";
 import { withRouter } from "react-router";
 import { removeWish } from "../api/wishHelper";
 import makeToast from "../Toaster";
+import { API } from "../config";
 
 function WishCard({ history, prod }) {
   const [added, setAdded] = React.useState(false);
@@ -29,13 +30,11 @@ function WishCard({ history, prod }) {
       </div>
       <img
         className={styles.productImage}
-        src={`https://thumbs.dreamstime.com/b/product-text-made-wooden-cube-white-background-181800372.jpg`}
+        style={{width:'100%', cursor:"pointer"}}
+        src={`${API}/image/photo/${prod.photo[0]}`}
+        onClick={() =>  history.push(`/product/${prod._id}`)}
         alt="productssss"
       />
-      <div
-        className={styles.productPreview}
-        onClick={() => history.push(`/product/${prod ? prod.id : "lalsldasl"}`)}
-      ></div>
       <div className={styles.productContent}>
         <h4>{prod ? prod.name : "Silk Saree"}</h4>
         <div

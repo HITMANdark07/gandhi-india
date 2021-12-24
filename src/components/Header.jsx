@@ -2,7 +2,6 @@ import React from "react";
 import { Link, withRouter } from "react-router-dom";
 import logo from "../assets/images/logo.png";
 import Box from "@mui/material/Box";
-import TextField from "@mui/material/TextField";
 import SearchIcon from "@mui/icons-material/Search";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
@@ -49,46 +48,7 @@ function Header(props) {
                 <img className="logo" src={logo} alt="logo_gandhiindia" />
               </Link>
             </li>
-            <div className="items">
-              {categorys.map((cat) => (
-                <li key={cat._id}
-                >
-                  <span 
-                  >
-                    <Link
-                    className={props.history.location.pathname ===
-                      `/category/${cat.slug}` ? "catLinks": ""}
-                    to={`/category/${cat.slug}`}>{cat.name}</Link>
-                  </span>
-                </li>
-              ))}
 
-              {/* <li>
-              <span>
-                <Link to="/category/handcraft">Handcraft</Link>
-              </span>
-            </li>
-            <li>
-              <span>
-                <Link to="/category/kitchen-appliances">Kitchen Appliances</Link>
-              </span>
-            </li>
-            <li>
-              <span>
-                <Link to="/category/sarees">Sarees</Link>
-              </span>
-            </li>
-            <li>
-              <span>
-                <Link to="/category/shirts">Shirts</Link>
-              </span>
-            </li>
-            <li>
-              <span>
-                <Link to="/category/kids">Kids</Link>
-              </span>
-            </li> */}
-            </div>
             <div className="items">
               <li>
                 <span>
@@ -97,30 +57,44 @@ function Header(props) {
                       display: "flex",
                       flexDirection: "row",
                       verticalAlign: "center",
+                      padding: "4px",
                       float: "left",
+                      border: "1px solid grey",
+                      borderRadius: "35px",
                     }}
                   >
-                    <SearchIcon
-                      sx={{
-                        color: "action.active",
-                        mr: 1,
-                        my: 0.5,
-                        paddingTop: "15px",
-                      }}
-                    />
-                    <TextField
-                      id="input-with-sx"
-                      label="Search"
+                    <input
+                      type="text"
+                      className="search"
                       value={searchTerm}
+                      placeholder="Search"
+                      style={{
+                        width: "680px",
+                        border: "none",
+                        backgroundColor: "transparent",
+                        paddingLeft: "10px",
+                      }}
                       onChange={(e) => {
                         setSearchTerm(e.target.value);
                       }}
                       onKeyPress={(e) => {
                         var keyCode = e.code || e.key;
-                        if (keyCode === "Enter" && e.target.value.trim() !== "") {
+                        if (
+                          keyCode === "Enter" &&
+                          e.target.value.trim() !== ""
+                        ) {
                           props.history.push(`/search/${e.target.value}`);
                         }
                       }}
+                    />
+                    <SearchIcon
+                      sx={{
+                        color: "action.active",
+                        mr: 1,
+                        my: 0.5,
+                        padding: "5px",
+                      }}
+                      style={{color:'#ff631c'}}
                     />
                   </Box>
                 </span>
@@ -128,24 +102,24 @@ function Header(props) {
             </div>
             <div className="items">
               <li>
-                <span >
+                <span>
                   {isAuthenticated() ? (
                     <Badge>
-                    <Link>
-                    <LogoutIcon
-                      onClick={() =>
-                        signout(() => {
-                          props.history.push("/signin");
-                        })
-                      }
-                    />
-                    </Link>
+                      <Link>
+                        <LogoutIcon
+                          onClick={() =>
+                            signout(() => {
+                              props.history.push("/signin");
+                            })
+                          }
+                        />
+                      </Link>
                     </Badge>
                   ) : (
                     <Badge>
-                    <Link to="/signin">
-                      <PersonOutlineIcon />
-                    </Link>
+                      <Link to="/signin">
+                        <PersonOutlineIcon color="#ff631c" />
+                      </Link>
                     </Badge>
                   )}
                 </span>

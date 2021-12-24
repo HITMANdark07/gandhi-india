@@ -1,5 +1,6 @@
 body{
-  font-family: lato;
+  background: #E5E5E5;
+  font-family: 'Merriweather', serif;
 }
 
 nav {
@@ -9,17 +10,25 @@ nav {
 .logo {
   height: 50px;
 }
+
+.search:focus{
+  border: none;
+  outline: none;
+}
 .header {
   position: fixed;
   top: 0;
   z-index: 20;
   width: 100%;
+  -webkit-box-shadow: 0 7px 6px -6px black;
+  -moz-box-shadow: 0 7px 6px -6px black;
+  box-shadow: 0 7px 6px -6px black;
 }
 nav ul {
   display: flex;
   list-style: none;
   align-items: center;
-  justify-content: space-evenly;
+  justify-content: space-between;
 }
 nav ul li span {
   text-decoration: none;
@@ -40,7 +49,7 @@ nav ul div.items {
 
 nav ul div.items a {
   text-decoration: none;
-  color: black;
+  color: #ff631c;
   font-weight: 600;
   border-radius: 10px;
   font-size: 13px;
@@ -60,9 +69,10 @@ nav ul div.items a:hover {
 
 nav ul li a img {
   height: 10%;
+  float:left
 }
 .productSlider {
-  width: 90%;
+  width: 100%;
   margin: 0 auto;
   cursor: move;
 }
@@ -90,7 +100,7 @@ nav ul .search-icon input {
   position: relative;
   display: flex;
   flex-direction: column;
-  /* height:10rem; */
+  /* height:250px; */
   width: 200px;
   padding:0.1rem;
   color: #f2f2f2;
@@ -98,14 +108,13 @@ nav ul .search-icon input {
   border: 0.1rem;
   background-color: #ff631c;
   border-radius: .6rem;
-  box-shadow: 5px 3px 2px 1px rgb(88, 86, 86);
 }
 
 .image__img {
   display: block;
-  width:99%;
+  height: 200px;
+  width:100%;
   flex:2;
-  margin-left: .5%;
   border-radius: 0.7rem;
 }
 
@@ -175,15 +184,14 @@ nav ul .search-icon input {
   width: 90%;
 }
 .categoryTop {
-  width: 80%;
+  width: 50%;
   margin: 0 auto;
+  border-bottom: 3px solid #ff631c;
   margin-top: 50px;
-  background-color: #ff631c;
-  color: white;
-  border-radius: 20px;
+  color: #ff631c;
   text-align: center;
-  padding: 8px;
-  font-size: 20px;
+  padding: 15px;
+  font-size: 25px;
   font-weight: 700;
   letter-spacing: 5px;
 }
@@ -323,6 +331,7 @@ nav ul .search-icon input {
   }
   .productSlider {
     width: 100%;
+    /* padding: 10px; */
   }
   .image{
     width: 170px;

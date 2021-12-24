@@ -57,7 +57,7 @@ function Footer() {
         </div>
         <div className="right box">
           <div className="topic">Subscribe us</div>
-          <form >
+          <form onSubmit={(e) => {e.preventDefault()}}>
             <input type="text" placeholder="Enter email address" />
             <input type="submit" name="" value="Send" />
             <div className="media-icons">

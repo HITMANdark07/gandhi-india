@@ -1,5 +1,5 @@
 import React from "react";
-import styles from "../assets/css/product.module.css";
+import styles from "../assets/css/Feature.module.css";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import { removeItem, updateItem } from "../api/cartHelper";
 import { withRouter } from "react-router";

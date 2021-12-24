@@ -4,8 +4,10 @@ import Corousal from "../components/Corousal";
 import TinySlider from "tiny-slider-react";
 import Header from "../components/Header";
 import ProductCard from "../components/ProductCard";
+import FeatureProduct from "../components/FeatureProduct";
 import Footer from "../components/Footer";
 import { getAllCategories } from "../api/category";
+import container from '../assets/Container.png';
 import { getFeatureProducts, getProductByCategoryId } from "../api/product";
 
 function Home() {
@@ -91,11 +93,12 @@ function Home() {
         </div>
         <div
           className="productSlider"
+          style={{backgroundImage: "url(" + container + ")", backgroundRepeat:'no-repeat',backgroundSize:'cover'}}
         >
-          <TinySlider settings={settings}>
+          <TinySlider settings={settings} >
             {
               featureProducts.map((pro) => (
-                <ProductCard key={pro._id} title={pro.name} id={pro._id} mrp={pro.mrp} price={pro.price} prod={pro}  />
+                <FeatureProduct key={pro._id} title={pro.name} id={pro._id} mrp={pro.mrp} price={pro.price} prod={pro}  />
               ))
             }
           </TinySlider>

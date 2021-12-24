@@ -65,26 +65,18 @@ function Signin() {
     <>
       <Headers />
       {redirectUser()}
-      <div className={classes.head} style={{ marginTop: "90px"}}>
-        <p className={classes.signup}>
-          I dont have an account!{" "}
-          <span className={classes.signupLink}>
-            <Link to="/signup">Create Your Account</Link>
-          </span>
-        </p>
+      <div className={classes.head} style={{ marginTop: "110px"}}>
+        
         {/* <div className={classes.socialLogins}>
                    <img className={classes.social} src={google} alt="google-alt" />
                    <img className={classes.social} src={facebook} alt="facebook-alt"/>
                </div> */}
         <div style={{ width: "20%", margin: "0 auto" }}>
-          <div className={classes.or}>
-            <span className={classes.orspan}>OR</span>
-          </div>
         </div>
       </div>
       <div className={classes.container}>
         <div className={classes.containerHead}>Sign in with Email</div>
-        <form className={classes.form}>
+        <form className={classes.form} >
           <div className={classes.inputgroup}>
             <input
               className={classes.input}
@@ -114,6 +106,12 @@ function Signin() {
           <div className={classes.inputgroup}>
             <button type="submit" onClick={clickSubmit} style={{cursor:"pointer"}} className={classes.button}> {loading ? <CircularProgress size={24} style={{color:"#fff"}} /> : "" } Sign in</button>
           </div>
+          <p className={classes.signup}>
+          I dont have an account!{" "}
+          <span className={classes.signupLink}>
+            <Link to="/signup">Create Your Account</Link>
+          </span>
+        </p>
         </form>
       </div>
       <Footer />

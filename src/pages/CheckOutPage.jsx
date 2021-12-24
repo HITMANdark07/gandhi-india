@@ -59,6 +59,7 @@ function CheckOutPage({ history }) {
   const [couponId, setCouponId] = React.useState("");
   const [discount, setDiscount] = React.useState(0);
   const [method, setMethod] = React.useState("COD");
+  const [agent, setAgent] = React.useState("");
   const {
     fullName,
     phone,
@@ -406,7 +407,7 @@ function CheckOutPage({ history }) {
           </div>
           {
             method==="COD" ?
-            (<Button variant="contained" onClick={orderNow} startIcon={<SendIcon />} >PLACE ORDER</Button>):
+            (<Button variant="contained" style={{width:'30%'}} size="large" onClick={orderNow} startIcon={<SendIcon />} >PLACE ORDER</Button>):
             (<Button variant="contained" startIcon={<PaymentIcon />} >PAY NOW</Button>)
           }
         </div>
@@ -417,8 +418,8 @@ function CheckOutPage({ history }) {
             <TextField
               id="standard-basic"
               type="text"
-              label="COUPAN CODE"
-              name="coupan"
+              label="COUPON CODE"
+              name="coupon"
               value={coupan}
               onChange={(e) => setCoupan(e.target.value.toUpperCase())}
               variant="outlined"
@@ -431,8 +432,18 @@ function CheckOutPage({ history }) {
               fullWidth
               sx={{ flex: 1, marginTop: "5px", marginBottom: "5px" }}
             >
-              APPLY COUPAN
+              APPLY COUPON
             </Button>
+            <TextField
+              id="standard-basic"
+              type="text"
+              label="AGENT CODE"
+              name="agent"
+              value={agent}
+              onChange={(e) => setAgent(e.target.value.toUpperCase())}
+              variant="outlined"
+              sx={{ flex: 1, margin: "5px" }}
+            />
           </div>
           <table className="table">
             <thead>
