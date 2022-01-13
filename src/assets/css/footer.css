@@ -2,11 +2,15 @@
 footer {
   width: 100%;
   position: relative;
+  padding-top: 70px;
   bottom: 0;
   left: 0;
   font-family: 'Poppins',sans-serif;
   z-index: 20;
   background: #ff631c;
+}
+.main-footer{
+  margin-top: 60vh;
 }
 footer .content {
   /* max-width: 1350px; */
@@ -131,6 +135,13 @@ footer a:hover {
 @media (max-width: 760px) {
   footer {
     position: relative;
+    padding-top: 20px;
+  }
+  .footer-ab{
+    display: none;
+  }
+  .main-footer{
+    margin-top: 20vh;
   }
   footer .content {
     /* max-width: 1350px; */

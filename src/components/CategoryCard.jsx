@@ -8,7 +8,7 @@ const CategoryCard = ({id,title,slug, history}) => {
       history.push(`/category/${slug}`);
     }}>
     <img className="image__img" src={`${API}/category/photo/${id}`} alt="Bricks"/>
-     <p className="title">{title.substr(0,11)}{title.length>11 ? "...": ""}</p>
+     <p className="title">{title}</p>
     <div className="image__overlay image__overlay--primary">
         <div className="image__title">{title}</div>  
         <p className="image__description">

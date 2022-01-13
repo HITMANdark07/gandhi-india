@@ -79,7 +79,7 @@ function Home() {
     <>
       <div>
         <Header />
-        <div style={{ marginTop: "60px" }}>
+        <div style={{ marginTop: "93px" }}>
           <Corousal />
         </div>
 
@@ -104,7 +104,7 @@ function Home() {
           </TinySlider>
         </div>
         {products.map((pro,i) => (
-          <React.Fragment key={i}>
+          <div className="shadow-container" key={i}>
           <div className="categoryTop">
             TOP {pro.category.toUpperCase()}
           </div>
@@ -115,7 +115,7 @@ function Home() {
             ))
           }
         </div>
-        </React.Fragment>
+        </div>
         ))}
       </div>
       <Footer/>

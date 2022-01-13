@@ -31,10 +31,11 @@ function Header(props) {
   return (
     <>
       <Drawer childFunc={childFunc} cats={categorys} />
-      <div className="header">
+      <div className="header" style={{display:'flex',flexDirection:'column', zIndex:40}}>
+      <div>
         <nav>
           <ul>
-            <li
+            {/* <li
               className="smallmedia"
               style={{ marginTop: "15px", cursor: "pointer" }}
             >
@@ -42,10 +43,10 @@ function Header(props) {
                 onClick={() => childFunc.current()}
                 sx={{ fontSize: 30 }}
               />
-            </li>
+            </li> */}
             <li className="logo">
               <Link to="/">
-                <img className="logo" src={logo} alt="logo_gandhiindia" />
+                <img className="logo"  src={logo} alt="logo_gandhiindia" />
               </Link>
             </li>
 
@@ -145,6 +146,22 @@ function Header(props) {
             </div>
           </ul>
         </nav>
+      </div>
+      {/* <div>
+            <nav>
+              <ul>
+              <li
+              className="smallmedia"
+              style={{ marginTop: "15px", cursor: "pointer" }}
+            >
+              <MenuIcon
+                onClick={() => childFunc.current()}
+                sx={{ fontSize: 30 }}
+              />
+            </li>
+              </ul>
+            </nav>
+      </div> */}
       </div>
     </>
   );
