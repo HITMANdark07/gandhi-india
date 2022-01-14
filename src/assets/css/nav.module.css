@@ -3,6 +3,7 @@
     /* padding:5px; */
     top:0;
     left:0;
+    max-height: 21.5vh;
     position: fixed;
     z-index:40;
     display:flex;
@@ -128,6 +129,8 @@
     .up{
         display:flex;
         flex-direction:column;
+        align-items: flex-start;
+        padding-left: 20px;
         /* justify-content:space-between;
         flex:13;
         align-items:center; */

@@ -320,6 +320,9 @@ nav ul .search-icon input {
 .headcart{
   margin-top: 180px;
 }
+#tns2 > .tns-item {
+  padding-right: 0px !important;
+}
 @media only screen and (max-width: 600px) {
   nav ul div.items a {
     display: none;

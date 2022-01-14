@@ -22,10 +22,11 @@
 
 
 .productImage {
-  margin: 0 auto;
+  /* margin: 0 auto; */
   border-top-left-radius: 8px;
   border-top-right-radius: 8px;
-  width: 100%;
+  width: 103%;
+  padding-left: -5%;
   height: 200px;
   object-fit: cover;
 }
