@@ -8,7 +8,7 @@ import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
 import LogoutIcon from "@mui/icons-material/Logout";
 import Drawer from "./Drawer";
-import MenuIcon from "@mui/icons-material/Menu";
+// import MenuIcon from "@mui/icons-material/Menu";
 import { isAuthenticated, signout } from "../auth";
 import { getAllCategories } from "../api/category";
 import Badge from "@mui/material/Badge";

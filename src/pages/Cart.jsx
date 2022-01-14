@@ -1,11 +1,12 @@
 import React from "react";
 import Footer from "../components/Footer";
-import Header from "../components/Header";
+// import Header from "../components/Header";
 import { getCart } from "../api/cartHelper";
 import CartCard from "../components/CartCard";
 import ShoppingCartCheckoutIcon from '@mui/icons-material/ShoppingCartCheckout';
 import { Button } from "@mui/material";
 import { withRouter } from "react-router";
+import Nav from "../components/Nav";
 function Cart({history}) {
   React.useEffect(() => {
     window.scrollTo({ top: 0, behavior: "smooth" });
@@ -13,8 +14,9 @@ function Cart({history}) {
   const total = getCart().reduce((acc, data) => data.count*data.price+acc,0);
   return (
     <>
-      <Header />
-      <div style={{ marginTop: "90px", width: "90%", marginLeft:"5%" }}>
+      {/* <Header /> */}
+      <Nav />
+      <div className="headcart" >
         <h2 style={{ textAlign: "center", color: "gray" }}>My Cart</h2>
       </div>
       {getCart().length>0 ? (

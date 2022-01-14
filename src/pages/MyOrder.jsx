@@ -1,7 +1,8 @@
 import { CircularProgress } from "@mui/material";
 import React from "react";
 import { getOrders } from "../api/order";
-import Header from "../components/Header";
+// import Header from "../components/Header";
+import Nav from "../components/Nav";
 import { API } from "../config";
 
 function MyOrder() {
@@ -22,11 +23,13 @@ function MyOrder() {
   },[]);
   return (
     <div>
-      <Header />
+      {/* <Header /> */}
+      <Nav />
       <div
+      className="head"
         style={{
           minHeight: "60vh",
-          margin: "100px auto",
+          marginTop: "160px",
         }}
       >
           <h1 style={{textAlign:"center"}}>MY ORDERS</h1>

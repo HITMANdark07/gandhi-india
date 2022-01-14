@@ -314,6 +314,12 @@ nav ul .search-icon input {
 .cardelem{
   margin: 5px;
 }
+.head{
+  margin-top: 130px;
+}
+.headcart{
+  margin-top: 180px;
+}
 @media only screen and (max-width: 600px) {
   nav ul div.items a {
     display: none;
@@ -323,6 +329,12 @@ nav ul .search-icon input {
     width: 90%;
     flex-direction:column;
     justify-content:space-evenly
+  }
+  .headcart{
+    margin-top: 150px;
+  }
+  .head{
+    margin-top:80px;
   }
   nav ul li span {
     display: none;

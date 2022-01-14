@@ -2,11 +2,12 @@ import React from "react";
 import CategoryCard from "../components/CategoryCard";
 import Corousal from "../components/Corousal";
 import TinySlider from "tiny-slider-react";
-import Header from "../components/Header";
+// import Header from "../components/Header";
 import ProductCard from "../components/ProductCard";
 import FeatureProduct from "../components/FeatureProduct";
 import Footer from "../components/Footer";
 import { getAllCategories } from "../api/category";
+import Nav from '../components/Nav';
 import container from '../assets/Container.png';
 import { getFeatureProducts, getProductByCategoryId } from "../api/product";
 
@@ -78,8 +79,9 @@ function Home() {
   return (
     <>
       <div>
-        <Header />
-        <div style={{ marginTop: "93px" }}>
+        {/* <Header /> */}
+        <Nav />
+        <div className="head">
           <Corousal />
         </div>
 

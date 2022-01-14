@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import Headers from "../components/Header";
+// import Headers from "../components/Header";
 import Footer from "../components/Footer";
 import { Link, Redirect } from 'react-router-dom';
 import classes from "../assets/css/form.module.css";
@@ -8,6 +8,7 @@ import CircularProgress from '@mui/material/CircularProgress';
 import { isAuthenticated } from "../auth/index";
 import { API } from '../config';
 import makeToast from "../Toaster";
+import Nav from '../components/Nav';
 // import google from "../assets/images/google.png";
 // import facebook from "../assets/images/facebook.png";
 
@@ -57,9 +58,10 @@ function Signup() {
       );
     return (
         <>
-           <Headers />
+           {/* <Headers /> */}
+           <Nav />
            {isAuthenticated() && <Redirect to="/" />}
-           <div className={classes.head} style={{marginTop:'110px'}}>
+           <div className={classes.head} style={{marginTop:'170px'}}>
                {/* <div className={classes.socialLogins}>
                    <img className={classes.social} src={google} alt="google-alt" />
                    <img className={classes.social} src={facebook} alt="facebook-alt"/>

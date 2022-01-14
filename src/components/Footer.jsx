@@ -109,7 +109,7 @@ function Footer() {
         </div>
         <div className="bottom">
           <p>
-            Copyright © 2021 <Link to="/">Gandhi India</Link> All rights
+            Copyright © {new Date().getFullYear()} <Link to="/">Gandhi India</Link> All rights
             reserved
           </p>
         </div>

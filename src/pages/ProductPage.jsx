@@ -2,7 +2,8 @@ import React, { useCallback } from 'react'
 import { withRouter } from 'react-router'
 import { getProductByCategoryId, getProductById } from '../api/product'
 import Footer from '../components/Footer'
-import Header from '../components/Header'
+// import Header from '../components/Header'
+import Nav from '../components/Nav'
 import ProductCard from '../components/ProductCard'
 import ProductMainCard from '../components/ProductMainCard'
 
@@ -41,8 +42,9 @@ function ProductPage({history,match:{params:{productId}}}) {
     
     return (
         <>
-        <Header/>  
-        <div style={{marginTop:'80px'}}>
+        {/* <Header/>   */}
+        <Nav />
+        <div className='head'>
             <ProductMainCard product={product} category={category.name} />
         </div>
         <div className="categoryTop">

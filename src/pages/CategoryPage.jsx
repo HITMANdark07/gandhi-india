@@ -1,11 +1,12 @@
 import React, { useCallback } from "react";
-import Header from "../components/Header";
+// import Header from "../components/Header";
 import styles from "../assets/css/CategoryPage.module.css";
 import { Link } from "react-router-dom";
 import Footer from "../components/Footer";
 import ProductCard from "../components/ProductCard";
 import { getAllCategories } from "../api/category";
 import { getProductByCategorySlug } from "../api/product";
+import Nav from "../components/Nav";
 function CategoryPage({match:{params:{categoryId}}}) {
   const [categories, setCategories] = React.useState([]);
   const [products,setProducts] = React.useState([]);
@@ -35,7 +36,8 @@ function CategoryPage({match:{params:{categoryId}}}) {
   }, [categoryId,allCats,getProducts])
   return (
     <>
-      <Header />
+      {/* <Header /> */}
+      <Nav />
       <div className={styles.sidebar}>
         <div className={styles.sidenav}>
             {/* <div className={styles.sidenavTitle}> Best Seller</div>

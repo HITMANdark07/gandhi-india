@@ -1,11 +1,12 @@
 import React, { useState } from "react";
-import Headers from "../components/Header";
+// import Headers from "../components/Header";
 import Footer from "../components/Footer";
 import { Link, withRouter, Redirect } from "react-router-dom";
 import classes from "../assets/css/form.module.css";
 import { isAuthenticated,authenticate, signin } from "../auth/index";
 import Alert from '@mui/material/Alert';
 import CircularProgress from '@mui/material/CircularProgress';
+import Nav from "../components/Nav";
 // import google from "../assets/images/google.png";
 // import facebook from "../assets/images/facebook.png";
 
@@ -63,9 +64,10 @@ function Signin() {
   
   return (
     <>
-      <Headers />
+      {/* <Headers /> */}
+      <Nav />
       {redirectUser()}
-      <div className={classes.head} style={{ marginTop: "110px"}}>
+      <div className={classes.head} style={{ marginTop: "170px"}}>
         
         {/* <div className={classes.socialLogins}>
                    <img className={classes.social} src={google} alt="google-alt" />

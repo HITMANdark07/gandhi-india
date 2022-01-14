@@ -1,8 +1,9 @@
 import React from "react";
 import Footer from "../components/Footer";
-import Header from "../components/Header";
+// import Header from "../components/Header";
 import { CountdownCircleTimer } from "react-countdown-circle-timer";
 import { Redirect } from "react-router";
+import Nav from "../components/Nav";
 
 
 const renderTime = ({ remainingTime }) => {
@@ -21,8 +22,9 @@ const renderTime = ({ remainingTime }) => {
 function ThankYou() {
   return (
     <div>
-      <Header />
-      <div style={{ minHeight: "50vh", margin: "120px auto", alignItems:"center" }}>
+      {/* <Header /> */}
+      <Nav />
+      <div style={{ minHeight: "50vh", margin: "180px auto", alignItems:"center" }}>
           <h2 style={{textAlign:"center", color:"gray"}}>Thank You For Shopping With Us</h2>
           <div className="timer-wrapper">
         <CountdownCircleTimer

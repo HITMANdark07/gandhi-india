@@ -1,18 +1,20 @@
 import React from "react";
 import Footer from "../components/Footer";
-import Header from "../components/Header";
+// import Header from "../components/Header";
 // import { getCart, emptyCart } from "../api/cartHelper";
 import { withRouter } from "react-router";
 import { getWish } from "../api/wishHelper";
 import WishCard from "../components/WishCard";
+import Nav from "../components/Nav";
 function Wish({history}) {
   React.useEffect(() => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   }, []);
   return (
     <>
-      <Header />
-      <div style={{ marginTop: "90px", width: "90%", marginLeft:"5%" }}>
+      {/* <Header /> */}
+      <Nav />
+      <div className="headcart">
         <h2 style={{ textAlign: "center", color: "gray" }}>My WishList</h2>
       </div>
       {getWish().length>0 ? (

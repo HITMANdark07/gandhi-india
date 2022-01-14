@@ -2,7 +2,8 @@ import { CircularProgress } from "@mui/material";
 import React, { useCallback } from "react";
 import { withRouter } from "react-router";
 import { getAllProducts } from "../api/product";
-import Header from "../components/Header";
+// import Header from "../components/Header";
+import Nav from "../components/Nav";
 import ProductCard from "../components/ProductCard";
 
 function SearchPage({history,match:{params:{searchTerm}}}) {
@@ -29,8 +30,9 @@ function SearchPage({history,match:{params:{searchTerm}}}) {
       );
   return (
     <div>
-      <Header />
-      <div style={{marginTop:"90px"}} >
+      {/* <Header /> */}
+      <Nav />
+      <div className="headcart" >
         <div className="categoryTop">Search : {searchTerm}</div>
         {loading ? (
             showLoading()

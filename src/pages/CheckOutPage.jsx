@@ -1,5 +1,5 @@
 import React, { useCallback } from "react";
-import Header from "../components/Header";
+// import Header from "../components/Header";
 import { emptyCart, getCart } from "../api/cartHelper";
 import Button from "@mui/material/Button";
 import { withRouter } from "react-router";
@@ -21,6 +21,7 @@ import SendIcon from '@mui/icons-material/Send';
 import { createAdderss, getAddressByUser } from "../api/address";
 import { getCoupan } from "../api/coupan";
 import { createOrder } from "../api/order";
+import Nav from "../components/Nav";
 
 function CheckOutPage({ history }) {
   const getmyaddress = useCallback(() => {
@@ -171,7 +172,10 @@ function CheckOutPage({ history }) {
   };
   return (
     <>
-      <Header />
+      {/* <Header /> */}
+      <Nav />
+      <div className="headcart">
+      </div>
       <div
         className="cartContainer"
         style={{
