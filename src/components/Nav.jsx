@@ -50,7 +50,7 @@ function Nav(props) {
         </div>
         <img
           src={logo}
-          style={{ width: "280px", height: "70px", flex:3, cursor:'pointer' }}
+          style={{ width: "280px", flex:3, cursor:'pointer' }}
           alt="brand"
           onClick={() => props.history.push("/")}
         />
@@ -68,7 +68,7 @@ function Nav(props) {
                       float: "left",
                       marginLeft:'10px',
                       border: "1px solid grey",
-                      borderRadius: "20px",
+                      borderRadius: "7px",
                     }}
                   >
                     <input
